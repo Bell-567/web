@@ -175,7 +175,102 @@
 }
 
 /* =========================================================
-   五、响应式
+   五、项目展示页
+   ========================================================= */
+.page-header {
+  margin-bottom: 28px;
+}
+
+/* 分类筛选按钮栏 */
+.filter-bar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 28px;
+}
+
+.filter-btn {
+  padding: 8px 18px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background-color: var(--card-bg);
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  font-weight: 500;
+  transition: color var(--transition), background-color var(--transition),
+    border-color var(--transition), transform var(--transition);
+}
+
+.filter-btn:hover {
+  color: var(--primary);
+  border-color: var(--primary);
+  transform: translateY(-2px);
+}
+
+.filter-btn.active {
+  background-color: var(--primary);
+  border-color: var(--primary);
+  color: #ffffff;
+}
+
+/* 项目卡片网格：自适应列数 */
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 22px;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.project-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary);
+}
+
+.project-title {
+  font-size: 1.15rem;
+}
+
+.project-desc {
+  flex: 1 1 auto;
+  font-size: 0.92rem;
+  color: var(--text-muted);
+}
+
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.project-link {
+  margin-top: 4px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--primary);
+  transition: color var(--transition), transform var(--transition);
+}
+
+.project-link:hover {
+  color: var(--primary-dark);
+}
+
+/* 空结果提示 */
+.empty-tip {
+  padding: 32px 20px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* =========================================================
+   九、响应式
    ========================================================= */
 @media (max-width: 768px) {
   .hero {

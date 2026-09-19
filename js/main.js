@@ -155,6 +155,132 @@
   }
 
   /* ---------------------------------------------------------
+     6. 项目展示页：数据、渲染与分类筛选
+     --------------------------------------------------------- */
+  var PROJECTS = [
+    {
+      title: '响应式个人主页',
+      desc: '使用语义化标签与 Grid / Flexbox 布局搭建的个人主页，支持深浅色主题切换。',
+      tags: ['HTML5', 'CSS3', '响应式'],
+      category: 'web',
+      link: '#'
+    },
+    {
+      title: '待办事项清单',
+      desc: '纯原生 JavaScript 实现的增删改查工具，数据通过 localStorage 持久化保存。',
+      tags: ['JavaScript', 'localStorage'],
+      category: 'javascript',
+      link: '#'
+    },
+    {
+      title: 'CSS 动画实验室',
+      desc: '汇总卡片翻转、加载进度、打字机等常见动效，全部基于 @keyframes 手写实现。',
+      tags: ['CSS3', '动画'],
+      category: 'css',
+      link: '#'
+    },
+    {
+      title: '本地搜索与筛选',
+      desc: '对数组数据做实时关键词过滤与分类筛选，练习数组方法与事件委托。',
+      tags: ['JavaScript', '数组方法'],
+      category: 'javascript',
+      link: '#'
+    },
+    {
+      title: '移动优先的博客模板',
+      desc: '采用移动优先策略编写的博客页面模板，断点覆盖 768px 与 480px。',
+      tags: ['CSS3', '媒体查询'],
+      category: 'css',
+      link: '#'
+    },
+    {
+      title: '表单验证组件',
+      desc: '包含正则邮箱校验与行内错误提示的表单验证方案，兼容键盘操作。',
+      tags: ['JavaScript', '正则表达式'],
+      category: 'javascript',
+      link: '#'
+    }
+  ];
+
+  function renderProjects(filter) {
+    var grid = document.getElementById('projectGrid');
+    if (!grid) {
+      return;
+    }
+
+    var emptyTip = document.getElementById('projectEmpty');
+    // 传入 'all' 或空值时展示全部项目
+    var list = (!filter || filter === 'all')
+      ? PROJECTS
+      : PROJECTS.filter(function (project) {
+          return project.category === filter;
+        });
+
+    grid.textContent = '';
+
+    list.forEach(function (project) {
+      var card = document.createElement('article');
+      card.className = 'card project-card';
+
+      var titleEl = document.createElement('h3');
+      titleEl.className = 'project-title';
+      titleEl.textContent = project.title;
+
+      var descEl = document.createElement('p');
+      descEl.className = 'project-desc';
+      descEl.textContent = project.desc;
+
+      var tagList = document.createElement('ul');
+      tagList.className = 'tag-list';
+      project.tags.forEach(function (tag) {
+        var li = document.createElement('li');
+        li.className = 'tag';
+        li.textContent = tag;
+        tagList.appendChild(li);
+      });
+
+      var linkEl = document.createElement('a');
+      linkEl.className = 'project-link';
+      linkEl.href = project.link;
+      linkEl.textContent = '查看源码 →';
+
+      card.appendChild(titleEl);
+      card.appendChild(descEl);
+      card.appendChild(tagList);
+      card.appendChild(linkEl);
+      grid.appendChild(card);
+    });
+
+    // 空结果提示
+    if (emptyTip) {
+      emptyTip.hidden = list.length > 0;
+    }
+  }
+
+  function initProjectFilter() {
+    var filterBar = document.getElementById('filterBar');
+    if (!filterBar) {
+      return;
+    }
+
+    renderProjects('all');
+
+    filterBar.addEventListener('click', function (event) {
+      var btn = event.target.closest('.filter-btn');
+      if (!btn) {
+        return;
+      }
+
+      // 切换按钮高亮状态
+      Array.prototype.forEach.call(filterBar.querySelectorAll('.filter-btn'), function (item) {
+        item.classList.toggle('active', item === btn);
+      });
+
+      renderProjects(btn.dataset.filter);
+    });
+  }
+
+  /* ---------------------------------------------------------
      入口
      --------------------------------------------------------- */
   document.addEventListener('DOMContentLoaded', function () {
@@ -163,5 +289,6 @@
     initTypewriter();
     initYear();
     renderSkills();
+    initProjectFilter();
   });
 })();
