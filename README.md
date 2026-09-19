@@ -6,11 +6,12 @@
 
 ## 在线预览
 
-- **网站地址**：<https://bell-567.github.io/web>
-- **GitHub 仓库**：<https://github.com/Bell-567/web>
+- **网站地址**：<https://my-portfolio.pages.dev>　<!-- 部署后替换为你的实际地址 -->
 - **Gitee 仓库**：<https://gitee.com/agsdgasad/web>
+- **GitHub 镜像**：<https://github.com/Bell-567/web>
 
-> 说明：原计划使用 Gitee Pages 部署，但该服务已停止运营，因此在线预览改由 GitHub Pages 提供。
+> **部署说明**：Gitee Pages 已停止服务，因此在线预览改用 **Cloudflare Pages** 部署
+> （免费、国内访问稳定）。部署步骤见文末「部署到 Cloudflare Pages」一节。
 
 ## 技术栈
 
@@ -145,6 +146,23 @@ python -m http.server 8000
 
 ### 暗色模式
 ![暗色模式下的首页](images/screenshot-dark.png)
+
+## 部署到 Cloudflare Pages
+
+本项目是纯静态站点，无需构建命令，部署只需三步：
+
+1. 打开 <https://dash.cloudflare.com/> 注册并登录（免费）。
+2. 左侧选择 **Workers & Pages** → **Create** → **Pages** → **Connect to Git**，
+   授权 GitHub 后选择仓库 `web`。
+   > 如果连不上 GitHub，也可以选 **Upload assets**，把整个项目文件夹拖进去直接上传。
+3. 构建配置全部留空：
+   - **Framework preset**：`None`
+   - **Build command**：留空
+   - **Build output directory**：`/`
+4. 点击 **Save and Deploy**，约 1 分钟后即可通过
+   `https://<你的项目名>.pages.dev` 访问。
+
+部署完成后，把上面的实际地址替换到本文档「在线预览」一节即可。
 
 ## 许可证
 
