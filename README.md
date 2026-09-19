@@ -126,28 +126,25 @@ python -m http.server 8000
 
 ## 截图
 
-> **截图占位说明**：运行项目后自行截图，将图片按下方约定的文件名保存到 `images/` 目录，
-> 再取消对应行的注释即可正常显示。
+> 以下为实际运行效果截图（视口 1440×1080）。如需换成自己的内容，按相同文件名覆盖 `images/` 下的图片即可。
 
-| 建议文件名 | 截图内容 |
-| --- | --- |
-| `images/screenshot-home.png` | 首页（Hero 区域 + 技能卡片） |
-| `images/screenshot-projects.png` | 项目页（分类筛选效果） |
-| `images/screenshot-blog.png` | 博客页（搜索过滤效果） |
-| `images/screenshot-guestbook.png` | 留言板（留言列表） |
-| `images/screenshot-contact.png` | 联系页（表单错误提示） |
-| `images/screenshot-dark.png` | 暗色模式整体效果 |
+### 首页
+![首页：Hero 区域、打字机效果与技能卡片](images/screenshot-home.png)
 
-图片就位后，把下面的注释去掉即可：
+### 项目页（分类筛选）
+![项目页：选中 JavaScript 分类后的筛选结果](images/screenshot-projects.png)
 
-<!--
-![首页](images/screenshot-home.png)
-![项目页](images/screenshot-projects.png)
-![博客页](images/screenshot-blog.png)
-![留言板](images/screenshot-guestbook.png)
-![联系页](images/screenshot-contact.png)
-![暗色模式](images/screenshot-dark.png)
--->
+### 博客页
+![博客页：文章列表与搜索框](images/screenshot-blog.png)
+
+### 留言板
+![留言板：留言表单与留言列表](images/screenshot-guestbook.png)
+
+### 联系页（表单验证）
+![联系页：姓名非空、邮箱格式、内容长度的行内错误提示](images/screenshot-contact.png)
+
+### 暗色模式
+![暗色模式下的首页](images/screenshot-dark.png)
 
 ## 许可证
 
