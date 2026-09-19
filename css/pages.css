@@ -546,7 +546,74 @@
 }
 
 /* =========================================================
-   九、响应式
+   九、联系页
+   ========================================================= */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 24px;
+  align-items: start;
+}
+
+.required {
+  color: #ef4444;
+}
+
+.info-card {
+  position: sticky;
+  top: calc(var(--nav-h) + 20px);
+}
+
+.info-title {
+  margin-bottom: 16px;
+  font-size: 1.15rem;
+}
+
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.info-list li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.94rem;
+  color: var(--text-muted);
+}
+
+.info-icon {
+  font-size: 1.1rem;
+}
+
+.info-note {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.contact-form {
+  display: block;
+}
+
+/* 校验通过后的成功提示 */
+.success-msg {
+  margin-top: 18px;
+  padding: 14px 18px;
+  border: 1px solid #10b981;
+  border-radius: 8px;
+  background-color: rgba(16, 185, 129, 0.1);
+  color: #10b981;
+  font-size: 0.94rem;
+  font-weight: 500;
+  animation: fadeInUp 0.4s ease both;
+}
+
+/* =========================================================
+   十、响应式
    ========================================================= */
 @media (max-width: 768px) {
   .hero {
@@ -587,6 +654,15 @@
   .filter-bar {
     justify-content: center;
   }
+
+  /* 联系页在平板及以下改为单列，信息卡片不再吸顶 */
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .info-card {
+    position: static;
+  }
 }
 
 @media (max-width: 480px) {
@@ -595,7 +671,19 @@
     height: 170px;
   }
 
-  .skill-grid {
+  /* 小屏下所有卡片网格退化为单列 */
+  .skill-grid,
+  .project-grid,
+  .guest-list {
     grid-template-columns: 1fr;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .post-footer {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

@@ -31,6 +31,22 @@
       document.documentElement.setAttribute('data-theme', next);
       localStorage.setItem(THEME_KEY, next);
     });
+
+    // 用户尚未手动选择过主题时，跟随系统设置的实时变化
+    var media = window.matchMedia('(prefers-color-scheme: dark)');
+    var onSystemChange = function (event) {
+      if (localStorage.getItem(THEME_KEY)) {
+        return;
+      }
+      document.documentElement.setAttribute('data-theme', event.matches ? 'dark' : 'light');
+    };
+
+    // 兼容旧版浏览器：addListener 为过时 API，但仍有环境需要
+    if (typeof media.addEventListener === 'function') {
+      media.addEventListener('change', onSystemChange);
+    } else if (typeof media.addListener === 'function') {
+      media.addListener(onSystemChange);
+    }
   }
 
   /* ---------------------------------------------------------
