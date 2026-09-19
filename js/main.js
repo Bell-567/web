@@ -281,6 +281,134 @@
   }
 
   /* ---------------------------------------------------------
+     7. 博客页：数据、渲染与实时搜索
+     --------------------------------------------------------- */
+  var POSTS = [
+    {
+      title: '从零理解 CSS Grid 与 Flexbox 的分工',
+      date: '2026-03-12',
+      summary: 'Grid 负责二维的页面骨架，Flexbox 负责一维的组件内部排列。本文通过实际布局案例说明两者的适用场景与组合方式。',
+      tags: ['CSS3', '布局']
+    },
+    {
+      title: '原生 JavaScript 实现打字机效果',
+      date: '2026-04-08',
+      summary: '只用一个 setTimeout 递归就能做出流畅的打字机动画，关键是如何处理打字、停顿与删除三个状态的切换。',
+      tags: ['JavaScript', '动画']
+    },
+    {
+      title: '用 localStorage 给静态页面加上持久化',
+      date: '2026-05-21',
+      summary: '静态站点没有后端，但 localStorage 足以支撑留言板、主题偏好这类轻量数据的持久化，本文总结常见坑点。',
+      tags: ['JavaScript', '存储']
+    },
+    {
+      title: '前端表单验证的正则表达式实践',
+      date: '2026-06-15',
+      summary: '从邮箱校验出发，讲解如何组织逐项验证逻辑、把错误信息精确显示在对应输入框下方，并兼顾无障碍。',
+      tags: ['JavaScript', '正则表达式']
+    },
+    {
+      title: '移动优先的响应式设计笔记',
+      date: '2026-07-02',
+      summary: '先写移动端样式再逐级增强，比从桌面端做减法更容易维护。记录了断点选取与汉堡菜单的实现思路。',
+      tags: ['CSS3', '响应式']
+    }
+  ];
+
+  function createPostCard(post) {
+    var article = document.createElement('article');
+    article.className = 'card post-card';
+
+    var header = document.createElement('div');
+    header.className = 'post-header';
+
+    var titleEl = document.createElement('h3');
+    titleEl.className = 'post-title';
+    titleEl.textContent = post.title;
+
+    var dateEl = document.createElement('time');
+    dateEl.className = 'post-date';
+    dateEl.dateTime = post.date;
+    dateEl.textContent = post.date;
+
+    header.appendChild(titleEl);
+    header.appendChild(dateEl);
+
+    var summaryEl = document.createElement('p');
+    summaryEl.className = 'post-summary';
+    summaryEl.textContent = post.summary;
+
+    var footer = document.createElement('div');
+    footer.className = 'post-footer';
+
+    var tagList = document.createElement('ul');
+    tagList.className = 'tag-list';
+    post.tags.forEach(function (tag) {
+      var li = document.createElement('li');
+      li.className = 'tag';
+      li.textContent = tag;
+      tagList.appendChild(li);
+    });
+
+    var readMore = document.createElement('a');
+    readMore.className = 'post-link';
+    readMore.href = '#';
+    readMore.textContent = '阅读更多 →';
+
+    footer.appendChild(tagList);
+    footer.appendChild(readMore);
+
+    article.appendChild(header);
+    article.appendChild(summaryEl);
+    article.appendChild(footer);
+
+    return article;
+  }
+
+  function renderPosts(keyword) {
+    var list = document.getElementById('postList');
+    if (!list) {
+      return;
+    }
+
+    var emptyTip = document.getElementById('postEmpty');
+    var query = (keyword || '').trim().toLowerCase();
+
+    // 关键词同时匹配标题与摘要
+    var filtered = query
+      ? POSTS.filter(function (post) {
+          var title = post.title.toLowerCase();
+          var summary = post.summary.toLowerCase();
+          return title.indexOf(query) !== -1 || summary.indexOf(query) !== -1;
+        })
+      : POSTS;
+
+    list.textContent = '';
+    filtered.forEach(function (post) {
+      list.appendChild(createPostCard(post));
+    });
+
+    if (emptyTip) {
+      emptyTip.hidden = filtered.length > 0;
+    }
+  }
+
+  function initPostSearch() {
+    var input = document.getElementById('searchInput');
+    if (!input) {
+      return;
+    }
+
+    renderPosts('');
+
+    // input 事件实现实时过滤，无需点击按钮
+    input.addEventListener('input', function () {
+      renderPosts(input.value);
+    });
+  }
+
+  /* ---------------------------------------------------------
      入口
      --------------------------------------------------------- */
   document.addEventListener('DOMContentLoaded', function () {
@@ -290,5 +418,6 @@
     initYear();
     renderSkills();
     initProjectFilter();
+    initPostSearch();
   });
 })();

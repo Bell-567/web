@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bell 的技术博客 —— 记录前端学习过程中的实践与思考。">
+  <title>博客 | Bell 的个人作品集</title>
+  <script>
+    // 主题初始化：必须在样式生效前执行，避免暗色模式刷新时闪烁
+    (function () {
+      var saved = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+    })();
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+  <script src="js/main.js" defer></script>
+</head>
+<body>
+  <!-- ========== 页头导航 ========== -->
+  <header class="site-header">
+    <div class="container navbar">
+      <a href="index.html" class="logo">Bell<span>.</span></a>
+
+      <nav class="nav-menu" id="navMenu" aria-label="主导航">
+        <a href="index.html">首页</a>
+        <a href="projects.html">项目</a>
+        <a href="blog.html" class="active">博客</a>
+        <a href="guestbook.html">留言板</a>
+        <a href="contact.html">联系我</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="切换暗色模式">
+          <svg class="icon-moon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+          <svg class="icon-sun" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="4"></circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"></path>
+          </svg>
+        </button>
+
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="打开导航菜单" aria-expanded="false" aria-controls="navMenu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="section">
+      <div class="container">
+        <header class="page-header">
+          <h1 class="section-title">技术博客</h1>
+          <p class="section-subtitle">记录前端学习路上的实践、踩坑与思考</p>
+        </header>
+
+        <!-- 搜索框：输入即过滤（input 事件） -->
+        <div class="search-bar">
+          <label class="sr-only" for="searchInput">搜索文章</label>
+          <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+          <input type="search" id="searchInput" class="search-input" placeholder="输入关键词搜索文章标题或摘要…" autocomplete="off">
+        </div>
+
+        <!-- 文章列表：由 js/main.js 渲染 -->
+        <div class="post-list" id="postList"></div>
+
+        <!-- 空结果提示 -->
+        <p class="empty-tip" id="postEmpty" hidden>没有匹配的文章，换个关键词试试吧。</p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ========== 页脚 ========== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© <span id="year"></span> Bell · 24数信01班 · 学号 20244081112</p>
+
+      <nav class="social-links" aria-label="社交链接">
+        <a href="#" aria-label="GitHub" title="GitHub">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 .5C5.73.5.5 5.73.5 12a11.5 11.5 0 0 0 7.86 10.92c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.34-1.29-1.7-1.29-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.8 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.43-2.69 5.4-5.25 5.69.41.36.78 1.06.78 2.14v3.17c0 .31.2.67.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.73 18.27.5 12 .5z"></path>
+          </svg>
+        </a>
+        <a href="#" aria-label="Gitee" title="Gitee">
+          <svg width="18" height="18" viewBox="0 0 1024 1024" fill="currentColor" aria-hidden="true">
+            <path d="M512 0C229 0 0 229 0 512s229 512 512 512 512-229 512-512S795 0 512 0zm214 397H474c-20 0-36 16-36 36v40c0 20 16 36 36 36h140c20 0 36 16 36 36v40c0 20-16 36-36 36H386c-20 0-36-16-36-36V403c0-20 16-36 36-36h340c20 0 36-16 36-36v-40c0-20-16-36-36-36H298c-20 0-36 16-36 36v460c0 20 16 36 36 36h428c20 0 36-16 36-36V433c0-20 16-36 36-36z"></path>
+          </svg>
+        </a>
+        <a href="mailto:bell@example.com" aria-label="邮箱" title="邮箱">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="4" width="20" height="16" rx="2"></rect>
+            <path d="m22 6-10 7L2 6"></path>
+          </svg>
+        </a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
