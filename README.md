@@ -27,7 +27,7 @@
 - [x] 顶部固定导航栏，含 Logo、5 个页面链接、主题切换按钮与移动端汉堡菜单
 - [x] **暗色模式**：默认跟随系统 `prefers-color-scheme`，手动切换后写入 `localStorage` 并在刷新后保持
 - [x] 主题初始化脚本内联于 `<head>`，避免暗色模式刷新时的闪烁
-- [x] 响应式布局，断点覆盖 `768px` 与 `480px`（移动优先）
+- [x] 响应式布局，使用 `max-width` 断点覆盖 `768px`（平板及以下）与 `480px`（手机）
 - [x] 所有可交互元素均具备 `:hover` 与 `:focus-visible` 状态，兼顾键盘可访问性
 - [x] 页脚年份由 JavaScript 自动更新为当前年份
 
@@ -126,18 +126,28 @@ python -m http.server 8000
 
 ## 截图
 
-> 截图占位说明：可将运行效果图放入 `images/` 目录后替换下方链接。
->
-> 例如：`![首页效果](images/screenshot-home.png)`
+> **截图占位说明**：运行项目后自行截图，将图片按下方约定的文件名保存到 `images/` 目录，
+> 再取消对应行的注释即可正常显示。
 
-### 首页
-![首页截图占位](images/screenshot-home.png)
+| 建议文件名 | 截图内容 |
+| --- | --- |
+| `images/screenshot-home.png` | 首页（Hero 区域 + 技能卡片） |
+| `images/screenshot-projects.png` | 项目页（分类筛选效果） |
+| `images/screenshot-blog.png` | 博客页（搜索过滤效果） |
+| `images/screenshot-guestbook.png` | 留言板（留言列表） |
+| `images/screenshot-contact.png` | 联系页（表单错误提示） |
+| `images/screenshot-dark.png` | 暗色模式整体效果 |
 
-### 项目页
-![项目页截图占位](images/screenshot-projects.png)
+图片就位后，把下面的注释去掉即可：
 
-### 暗色模式
-![暗色模式截图占位](images/screenshot-dark.png)
+<!--
+![首页](images/screenshot-home.png)
+![项目页](images/screenshot-projects.png)
+![博客页](images/screenshot-blog.png)
+![留言板](images/screenshot-guestbook.png)
+![联系页](images/screenshot-contact.png)
+![暗色模式](images/screenshot-dark.png)
+-->
 
 ## 许可证
 
