@@ -9,6 +9,11 @@
   --primary: #6366f1;
   --primary-dark: #4f46e5;
   --accent: #06b6d4;
+  /* 实心填充色与其前景色成对定义，保证两种主题下文字对比度均达到 WCAG AA */
+  --primary-solid: #4f46e5;
+  --primary-solid-hover: #4338ca;
+  --on-primary: #ffffff;
+  --danger: #dc2626;
   --bg: #f8fafc;
   --bg-alt: #eef2ff;
   --text: #1e293b;
@@ -27,6 +32,11 @@
   --primary: #818cf8;
   --primary-dark: #6366f1;
   --accent: #22d3ee;
+  /* 暗色下主色更亮，因此前景改用深色、hover 时进一步提亮而非变暗 */
+  --primary-solid: #818cf8;
+  --primary-solid-hover: #a5b4fc;
+  --on-primary: #1e1b4b;
+  --danger: #f87171;
   --bg: #0f172a;
   --bg-alt: #1e1b4b;
   --text: #e2e8f0;
@@ -108,10 +118,21 @@ button {
   font-weight: 800;
   letter-spacing: -0.5px;
   color: var(--primary);
+  transition: color var(--transition);
 }
 
 .logo span {
   color: var(--accent);
+  transition: color var(--transition);
+}
+
+/* hover 时与强调色互换，两种主题下都有明显反馈 */
+.logo:hover {
+  color: var(--accent);
+}
+
+.logo:hover span {
+  color: var(--primary);
 }
 
 .nav-menu {
@@ -190,6 +211,13 @@ button {
   border: 1px solid var(--border);
   border-radius: 8px;
   background-color: transparent;
+  transition: background-color var(--transition), border-color var(--transition), transform var(--transition);
+}
+
+.nav-toggle:hover {
+  background-color: var(--bg-alt);
+  border-color: var(--primary);
+  transform: translateY(-2px);
 }
 
 .nav-toggle span {
@@ -262,14 +290,14 @@ button {
   padding: 10px 22px;
   border: none;
   border-radius: 8px;
-  background-color: var(--primary);
-  color: #ffffff;
+  background-color: var(--primary-solid);
+  color: var(--on-primary);
   font-weight: 600;
   transition: background-color var(--transition), transform var(--transition), box-shadow var(--transition);
 }
 
 .btn:hover {
-  background-color: var(--primary-dark);
+  background-color: var(--primary-solid-hover);
   transform: translateY(-2px);
   box-shadow: var(--shadow-lg);
 }
@@ -281,8 +309,8 @@ button {
 }
 
 .btn-outline:hover {
-  background-color: var(--primary);
-  color: #ffffff;
+  background-color: var(--primary-solid);
+  color: var(--on-primary);
 }
 
 /* ---------- 通用卡片 ---------- */
@@ -347,9 +375,11 @@ textarea:focus-visible {
   }
 }
 
-/* 页面主体淡入 */
+/* 页面主体淡入。
+   使用 backwards 而非 both：动画结束后元素回到基础样式（不再保留 transform），
+   避免 main 长期成为定位后代的包含块而影响内部 sticky/fixed 布局。 */
 main {
-  animation: fadeInUp 0.6s ease both;
+  animation: fadeInUp 0.6s ease backwards;
 }
 
 /* ---------- 响应式：平板及以下（≤768px） ---------- */
@@ -394,9 +424,12 @@ main {
     padding: 0 16px;
   }
 
+  /* 必须重新声明 padding：同区块前面的 .container 规则会把
+     .footer-inner 的 24px 上下内边距覆盖为 0，导致页脚内容贴边 */
   .footer-inner {
     flex-direction: column;
     text-align: center;
+    padding: 24px 16px;
   }
 
   .btn {

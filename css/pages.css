@@ -208,9 +208,9 @@
 }
 
 .filter-btn.active {
-  background-color: var(--primary);
-  border-color: var(--primary);
-  color: #ffffff;
+  background-color: var(--primary-solid);
+  border-color: var(--primary-solid);
+  color: var(--on-primary);
 }
 
 /* 项目卡片网格：自适应列数 */
@@ -435,7 +435,7 @@
 /* 校验失败时的输入框样式 */
 .form-row input.invalid,
 .form-row textarea.invalid {
-  border-color: #ef4444;
+  border-color: var(--danger);
   box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15);
 }
 
@@ -443,7 +443,8 @@
 .error-msg {
   min-height: 1.2em;
   font-size: 0.82rem;
-  color: #ef4444;
+  /* 使用变量以适配暗色背景下的对比度 */
+  color: var(--danger);
 }
 
 .form-actions {
@@ -475,8 +476,8 @@
   height: 26px;
   padding: 0 8px;
   border-radius: 999px;
-  background-color: var(--primary);
-  color: #ffffff;
+  background-color: var(--primary-solid);
+  color: var(--on-primary);
   font-size: 0.8rem;
   font-weight: 600;
 }
@@ -539,10 +540,11 @@
   transition: color var(--transition), border-color var(--transition), background-color var(--transition);
 }
 
+/* 固定使用较深的红色，白字在任何主题下都能达到 AA 对比度 */
 .guest-delete:hover {
   color: #ffffff;
-  background-color: #ef4444;
-  border-color: #ef4444;
+  background-color: #dc2626;
+  border-color: #dc2626;
 }
 
 /* =========================================================
@@ -552,11 +554,12 @@
   display: grid;
   grid-template-columns: 320px 1fr;
   gap: 24px;
-  align-items: start;
+  /* 不使用 align-items: start —— 那会让左侧 aside 高度等于卡片高度，
+     内部 sticky 卡片失去可滚动行程而失效。默认 stretch 才能吸顶。 */
 }
 
 .required {
-  color: #ef4444;
+  color: var(--danger);
 }
 
 .info-card {
@@ -623,6 +626,12 @@
   .hero-inner {
     flex-direction: column-reverse;
     text-align: center;
+  }
+
+  /* 主轴翻转为垂直后，flex-basis:480px 会变成高度，
+     使 hero 底部多出约 150px 空白，这里改回按内容自适应 */
+  .hero-text {
+    flex-basis: auto;
   }
 
   .hero-desc {
