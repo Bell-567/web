@@ -10,6 +10,7 @@
 
 - **GitHub Pages**：<https://bell-567.github.io/web>
 - **Cloudflare Pages**：<https://my-portfolio.pages.dev>　<!-- 部署后替换为实际地址 -->
+- **uni-app 多端版（H5）**：<https://bell-567.github.io/web/uniapp/>
 
 **代码仓库**：
 
