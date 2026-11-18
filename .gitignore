@@ -16,3 +16,21 @@ node_modules/
 # 临时文件
 *.tmp
 *.swp
+
+# 环境变量
+.env
+.env.local
+.env.*.local
+
+# 后端运行时数据
+server/data/
+
+# 本地下载与临时文件
+.downloads/
+.tmp-nb/
+ziplist.txt
+*.zip
+
+# 前端构建产物（子项目也各自配置了忽略规则，这里兜底）
+vue-app/dist/
+uniapp-app/dist/

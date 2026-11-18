@@ -30,6 +30,25 @@
 | 脚本 | 原生 JavaScript（ES5 风格，无构建工具）：DOM 操作、事件委托、数组渲染、`localStorage`、正则表达式 |
 | 版本控制 | Git（规范化提交信息：`feat` / `fix` / `docs` / `style` / `chore`） |
 
+## 后端服务（Express + SQLite）
+
+仓库中的 `server/` 为 `vue-app/` 与 `uniapp-app/` 提供 REST API：
+
+- 目的地列表 / 详情、关键词搜索与大洲筛选（图片为本地化的真实景点照片）
+- 行程清单 CRUD（按访客标识隔离，无需登录）
+- 留言板 CRUD、联系表单提交（服务端校验 + 限流）
+- 站点内容（作品集项目 / 博客文章）与实时统计
+
+```bash
+cd server
+npm install
+npm start        # 健康检查：http://localhost:3000/api/health
+npm test         # 使用临时数据库跑接口测试
+```
+
+前端开发服务器已配置 `/api` 代理；后端不可用时，前端会自动回退到本地种子数据。
+完整接口清单、环境变量与数据库说明见 [server/README.md](server/README.md)。
+
 ## 功能特性
 
 ### 全站通用
@@ -94,6 +113,12 @@ web/
 ├── README.md
 └── .gitignore
 ```
+
+仓库中还包含两套前端实验与配套后端：
+
+- `vue-app/`：Vue 3 + Vite + Vue Router 单页应用
+- `uniapp-app/`：由 `vue-app/` 迁移的 uni-app 多端版本（H5 / 微信小程序 / App）
+- `server/`：Express + SQLite 后端，为上面两个应用提供 API
 
 ## 本地运行
 

@@ -1,0 +1,21 @@
+{
+  "name": "wanderlog-server",
+  "version": "1.0.0",
+  "private": true,
+  "description": "山海行记 · Express + SQLite 后端",
+  "type": "module",
+  "main": "src/index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.4.1",
+    "cors": "^2.8.5",
+    "express": "^5.1.0"
+  }
+}

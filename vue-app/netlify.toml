@@ -1,0 +1,11 @@
+# 当把 Netlify 站点指向 vue-app 目录时使用此配置
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# 本项目的路由采用 Hash 模式，无需 SPA 回退重写即可在任意静态托管正常访问；
+# 若未来改为 History 模式，请取消下面两行的注释：
+# [[redirects]]
+#   from = "/*"
+#   to = "/index.html"
+#   status = 200

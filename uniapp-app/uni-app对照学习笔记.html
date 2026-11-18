@@ -1,0 +1,3295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>山海行记 · uni-app 多端项目对照学习笔记</title>
+<style>
+:root {
+  --bg: #f7f3ec;
+  --surface: #ffffff;
+  --text: #2a241d;
+  --muted: #776c5e;
+  --border: #e4dccd;
+  --accent: #d96c4b;
+  --accent-soft: #f7e0d7;
+  --code-bg: #1e1b18;
+  --code-text: #f0e9dd;
+  --inline-code-bg: rgba(217, 108, 75, 0.12);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #171410;
+    --surface: #221d17;
+    --text: #f0e9dd;
+    --muted: #a99d8b;
+    --border: #382f24;
+    --accent: #e8855f;
+    --accent-soft: #3a251c;
+    --code-bg: #0f0d0b;
+    --code-text: #f0e9dd;
+    --inline-code-bg: rgba(232, 133, 95, 0.16);
+  }
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Helvetica Neue", sans-serif;
+  line-height: 1.8;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 22px 16px 80px;
+}
+h1, h2, h3, h4 {
+  font-family: "Noto Serif SC", "Songti SC", "SimSun", serif;
+  line-height: 1.35;
+  margin: 2.2em 0 0.6em;
+}
+h1 {
+  font-size: 1.75rem;
+  margin-top: 0.4em;
+  border-bottom: 2px solid var(--accent);
+  padding-bottom: 0.35em;
+}
+h2 {
+  font-size: 1.35rem;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 0.3em;
+}
+h3 { font-size: 1.12rem; color: var(--accent); }
+h4 { font-size: 1rem; }
+p { margin: 0.7em 0; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+strong { font-weight: 700; }
+hr { border: none; border-top: 1px solid var(--border); margin: 2em 0; }
+ul, ol { padding-left: 1.5em; margin: 0.7em 0; }
+li { margin: 0.28em 0; }
+li > ul, li > ol { margin: 0.2em 0; }
+blockquote {
+  margin: 1em 0;
+  padding: 0.7em 1em;
+  border-left: 4px solid var(--accent);
+  background: var(--accent-soft);
+  color: var(--text);
+  border-radius: 0 8px 8px 0;
+}
+blockquote p { margin: 0.3em 0; }
+pre {
+  background: var(--code-bg);
+  color: var(--code-text);
+  padding: 14px 16px;
+  border-radius: 10px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 1em 0;
+}
+code {
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 0.9em;
+}
+pre code { font-size: 13px; white-space: pre; }
+:not(pre) > code {
+  background: var(--inline-code-bg);
+  color: var(--accent);
+  padding: 0.12em 0.4em;
+  border-radius: 4px;
+  word-break: break-word;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  display: block;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1em 0;
+  font-size: 14px;
+}
+th, td {
+  border: 1px solid var(--border);
+  padding: 8px 10px;
+  text-align: left;
+  vertical-align: top;
+  min-width: 90px;
+}
+th { background: var(--accent-soft); font-weight: 700; }
+details.toc {
+  margin: 1.4em 0;
+  padding: 12px 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  font-size: 14px;
+}
+details.toc summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--accent);
+}
+details.toc ul { margin: 0.6em 0 0; }
+details.toc a { color: var(--text); }
+details.toc a:hover { color: var(--accent); }
+#toTop {
+  position: fixed;
+  right: 16px;
+  bottom: 20px;
+  width: 44px;
+  height: 44px;
+  border: none;
+  border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  font-size: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.22);
+  cursor: pointer;
+  display: none;
+  z-index: 99;
+}
+footer {
+  margin-top: 48px;
+  padding-top: 18px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 13px;
+  text-align: center;
+}
+@media (max-width: 600px) {
+  body { font-size: 15px; }
+  .wrap { padding: 16px 12px 72px; }
+  h1 { font-size: 1.45rem; }
+  h2 { font-size: 1.2rem; }
+  h3 { font-size: 1.05rem; }
+  pre { font-size: 12px; padding: 12px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1 id="uni-app">山海行记 · uni-app 多端项目对照学习笔记</h1><details class="toc"><summary>📑 快速跳转目录（点击展开）</summary><div class="toc">
+<ul>
+<li><a href="#notebook">怎么用这个 notebook</a></li>
+<li><a href="#_1">推荐阅读顺序</a></li>
+<li><a href="#_2">目录</a></li>
+<li><a href="#0">第 0 章 一张图看懂运行链路</a><ul>
+<li><a href="#api">🧠 先记住三组 API</a></li>
+</ul>
+</li>
+<li><a href="#1">第 1 章 工程配置</a><ul>
+<li><a href="#11-packagejson">1.1 package.json</a></li>
+<li><a href="#12-viteconfigjs">1.2 vite.config.js</a></li>
+<li><a href="#13-indexhtml">1.3 index.html</a></li>
+<li><a href="#14-srcmanifestjson">1.4 src/manifest.json</a></li>
+<li><a href="#15-srcpagesjson">1.5 src/pages.json</a></li>
+<li><a href="#16-srcuniscss">1.6 src/uni.scss</a></li>
+</ul>
+</li>
+<li><a href="#2">第 2 章 启动入口</a><ul>
+<li><a href="#21-srcmainjs">2.1 src/main.js</a></li>
+<li><a href="#22-srcappvue">2.2 src/App.vue</a><ul>
+<li><a href="#_3">应用生命周期</a></li>
+<li><a href="#_4">全局样式</a></li>
+<li><a href="#page">为什么主题变量不写在 page 上？</a></li>
+<li><a href="#appvue-vue">为什么 App.vue 不能像 Vue 网站那样包住所有页面？</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#3-composables">第 3 章 组合式函数 composables</a><ul>
+<li><a href="#31-usesitejs">3.1 useSite.js</a></li>
+<li><a href="#32-usethemejs">3.2 useTheme.js</a></li>
+<li><a href="#33-usefavoritesjs">3.3 useFavorites.js</a></li>
+<li><a href="#34-usepagescrolljs">3.4 usePageScroll.js</a></li>
+</ul>
+</li>
+<li><a href="#4-destinationsjs">第 4 章 数据层 destinations.js</a></li>
+<li><a href="#5">第 5 章 五个页面</a><ul>
+<li><a href="#51-pagesindexindexvue">5.1 首页 pages/index/index.vue</a></li>
+<li><a href="#52-pagesdestinationsindexvue">5.2 目的地列表 pages/destinations/index.vue</a></li>
+<li><a href="#53-pagesdestinationdetailvue">5.3 目的地详情 pages/destination/detail.vue</a></li>
+<li><a href="#54-pagesplannerindexvue">5.4 行程规划 pages/planner/index.vue</a></li>
+<li><a href="#55-pagesaboutindexvue">5.5 关于 pages/about/index.vue</a></li>
+</ul>
+</li>
+<li><a href="#6">第 6 章 二十五个组件</a><ul>
+<li><a href="#_5">组件通信方式速查</a></li>
+<li><a href="#61">6.1 布局外壳</a><ul>
+<li><a href="#appshellvue">AppShell.vue</a></li>
+<li><a href="#navbarvue">NavBar.vue</a></li>
+<li><a href="#appfootervue">AppFooter.vue</a></li>
+<li><a href="#backtotopvue">BackToTop.vue</a></li>
+</ul>
+</li>
+<li><a href="#62">6.2 通用展示</a><ul>
+<li><a href="#sectiontitlevue">SectionTitle.vue</a></li>
+<li><a href="#featurecardvue">FeatureCard.vue</a></li>
+<li><a href="#tagbadgevue">TagBadge.vue</a></li>
+<li><a href="#emptystatevue">EmptyState.vue</a></li>
+<li><a href="#basebuttonvue">BaseButton.vue</a></li>
+<li><a href="#ratingstarsvue">RatingStars.vue</a></li>
+<li><a href="#progressbarvue">ProgressBar.vue</a></li>
+</ul>
+</li>
+<li><a href="#63">6.3 目的地相关</a><ul>
+<li><a href="#searchbarvue">SearchBar.vue</a></li>
+<li><a href="#filterbarvue">FilterBar.vue</a></li>
+<li><a href="#destinationlistvue">DestinationList.vue</a></li>
+<li><a href="#destinationcardvue">DestinationCard.vue</a></li>
+<li><a href="#herobannervue">HeroBanner.vue</a></li>
+<li><a href="#statsbarvue">StatsBar.vue</a></li>
+<li><a href="#photogalleryvue">PhotoGallery.vue</a></li>
+<li><a href="#factlistvue">FactList.vue</a></li>
+<li><a href="#favoritebuttonvue">FavoriteButton.vue</a></li>
+</ul>
+</li>
+<li><a href="#64">6.4 表单与清单</a><ul>
+<li><a href="#forminputvue">FormInput.vue</a></li>
+<li><a href="#contactformvue">ContactForm.vue</a></li>
+<li><a href="#plannerformvue">PlannerForm.vue</a></li>
+<li><a href="#planneritemvue">PlannerItem.vue</a></li>
+</ul>
+</li>
+<li><a href="#65">6.5 主题</a><ul>
+<li><a href="#themetogglevue">ThemeToggle.vue</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#7">第 7 章 样式体系与多端兼容</a><ul>
+<li><a href="#71">7.1 三层样式</a></li>
+<li><a href="#72">7.2 主题切换的核心代码</a></li>
+<li><a href="#73">7.3 响应式断点</a></li>
+<li><a href="#74">7.4 为小程序做的兼容处理</a></li>
+<li><a href="#75-px-rpx">7.5 关于 px 与 rpx</a></li>
+</ul>
+</li>
+<li><a href="#8">第 8 章 三条完整数据流</a><ul>
+<li><a href="#81">8.1 收藏：组件事件 → 共享状态 → 持久化 → 多处更新</a></li>
+<li><a href="#82-computed">8.2 搜索：输入 → computed → 列表重渲染</a></li>
+<li><a href="#83">8.3 行程：增删改 → 深度监听 → 自动保存</a></li>
+</ul>
+</li>
+<li><a href="#9-web-uni-app">第 9 章 Web → uni-app 迁移对照</a><ul>
+<li><a href="#_6">迁移时最容易踩的坑</a></li>
+</ul>
+</li>
+<li><a href="#10">第 10 章 自测题与动手练习</a><ul>
+<li><a href="#101">10.1 自测题</a></li>
+<li><a href="#102">10.2 动手练习</a></li>
+<li><a href="#103">10.3 参考答案</a></li>
+</ul>
+</li>
+<li><a href="#_7">附录 运行命令与排错</a><ul>
+<li><a href="#_8">常用命令</a></li>
+<li><a href="#hbuilderx">HBuilderX 运行</a></li>
+<li><a href="#_9">常见问题</a></li>
+<li><a href="#_10">在线预览</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</details>
+<blockquote>
+<p>配套项目：<code>D:\web\uniapp-app</code>
+在线预览：<a href="https://bell-567.github.io/web/uniapp/">https://bell-567.github.io/web/uniapp/</a>
+技术栈：uni-app（Vue 3 + Vite）· HBuilderX 5.34</p>
+</blockquote>
+<h2 id="notebook">怎么用这个 notebook</h2>
+<ol>
+<li>每一节先读说明，再对照下面的代码。</li>
+<li>代码块<strong>只用于阅读，不能直接运行</strong>——uni API 需要 HBuilderX / 微信开发者工具 / 手机基座。</li>
+<li>想动手时，修改 <code>D:\web\uniapp-app\src</code> 下的源文件，然后运行 <code>npm run dev:h5</code>。</li>
+<li>为节省篇幅，页面与组件的 <code>&lt;style scoped&gt;</code> 已省略，样式请打开源文件查看；样式体系在第 7 章单独讲。</li>
+</ol>
+<h2 id="_1">推荐阅读顺序</h2>
+<ol>
+<li><code>pages.json</code>（先知道有哪几个页面）</li>
+<li>首页 <code>pages/index/index.vue</code>（看页面是怎么组装起来的）</li>
+<li><code>AppShell.vue</code>（所有页面共用的外壳）</li>
+<li><code>composables/</code>（共享状态与逻辑）</li>
+<li>列表页 → 详情页 → 行程页 → 关于页</li>
+<li>最后按分类看 25 个组件</li>
+</ol>
+<h2 id="_2">目录</h2>
+<ul>
+<li>第 0 章　一张图看懂运行链路</li>
+<li>第 1 章　工程配置（package.json / manifest.json / pages.json）</li>
+<li>第 2 章　启动入口（main.js / App.vue）</li>
+<li>第 3 章　组合式函数 composables</li>
+<li>第 4 章　数据层 destinations.js</li>
+<li>第 5 章　五个页面</li>
+<li>第 6 章　二十五个组件</li>
+<li>第 7 章　样式体系与多端兼容</li>
+<li>第 8 章　三条完整数据流</li>
+<li>第 9 章　Web → uni-app 迁移对照</li>
+<li>第 10 章　自测题与动手练习</li>
+<li>附录　运行命令与排错</li>
+</ul>
+<h2 id="0">第 0 章　一张图看懂运行链路</h2>
+<pre><code class="language-text">index.html (仅 H5 需要)
+  └─ src/main.js            createSSRApp(App)，导出 createApp 工厂
+       └─ src/App.vue       全局样式 + 应用级生命周期（onLaunch/onShow/onHide）
+            └─ src/pages.json   页面路由表；数组第一项就是启动页
+                 └─ src/pages/xxx.vue   具体页面
+                      ├─ src/components/*.vue   页面用到的组件
+                      ├─ src/composables/*.js   跨页面共享的状态与逻辑
+                      └─ src/data/destinations.js  模拟数据
+</code></pre>
+<p>可以把它分成三层：</p>
+<table>
+<thead>
+<tr>
+<th>层</th>
+<th>文件</th>
+<th>职责</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>配置层</td>
+<td><code>package.json</code>、<code>manifest.json</code>、<code>pages.json</code></td>
+<td>告诉编译器「有哪些端、哪些页面、每端怎么配置」</td>
+</tr>
+<tr>
+<td>运行时层</td>
+<td><code>main.js</code>、<code>App.vue</code></td>
+<td>创建应用、注册全局样式与生命周期</td>
+</tr>
+<tr>
+<td>业务层</td>
+<td><code>pages/</code>、<code>components/</code>、<code>composables/</code>、<code>data/</code></td>
+<td>页面、组件、共享状态、数据</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>关键区别：普通 Vue 项目由 <code>main.js</code> 手动 <code>mount('#app')</code>；uni-app 由各端运行时调用
+<code>createApp()</code> 工厂，再自行挂载。所以 <code>main.js</code> 里看不到 <code>mount</code>。</p>
+</blockquote>
+<h3 id="api">🧠 先记住三组 API</h3>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>Web 版</th>
+<th>uni-app 版</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>页面跳转</td>
+<td><code>router.push</code></td>
+<td><code>uni.navigateTo</code> / <code>uni.switchTab</code></td>
+</tr>
+<tr>
+<td>本地存储</td>
+<td><code>localStorage</code></td>
+<td><code>uni.getStorageSync</code> / <code>uni.setStorageSync</code></td>
+</tr>
+<tr>
+<td>页面滚动</td>
+<td><code>window.scrollY</code> / <code>window.scrollTo</code></td>
+<td><code>onPageScroll</code> / <code>uni.pageScrollTo</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="1">第 1 章　工程配置</h2>
+<p>这一章的文件决定了「项目怎么编译、编译到哪些端、有哪些页面」。一般不需要天天改，
+但面试/答辩时最容易被问「uni-app 的路由在哪配置」。</p>
+<h3 id="11-packagejson">1.1 package.json</h3>
+<p><strong>作用</strong>：声明依赖和 npm 脚本。</p>
+<ul>
+<li><code>scripts</code> 里 <code>dev:*</code> 是开发模式（监听改动），<code>build:*</code> 是生产构建，默认端是 H5。</li>
+<li><code>@dcloudio/uni-h5</code>、<code>@dcloudio/uni-mp-weixin</code>、<code>@dcloudio/uni-app-plus</code> 分别是三端的运行时。</li>
+<li><code>@dcloudio/vite-plugin-uni</code> 是编译核心，<code>vite</code> 版本被锁定为 5.2.8，避免与 uni 插件不兼容。</li>
+<li>版本号 <code>3.0.0-5030420261029002</code> 与 HBuilderX 5.34 配套，所有 <code>@dcloudio/*</code> 必须保持一致。</li>
+</ul>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;wanderlog-uniapp&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;private&quot;: true,
+  &quot;description&quot;: &quot;山海行记 · 环球旅行手账（uni-app 多端版本）&quot;,
+  &quot;scripts&quot;: {
+    &quot;dev:h5&quot;: &quot;uni&quot;,
+    &quot;dev:mp-weixin&quot;: &quot;uni -p mp-weixin&quot;,
+    &quot;dev:app&quot;: &quot;uni -p app&quot;,
+    &quot;build:h5&quot;: &quot;uni build&quot;,
+    &quot;build:mp-weixin&quot;: &quot;uni build -p mp-weixin&quot;,
+    &quot;build:app&quot;: &quot;uni build -p app&quot;
+  },
+  &quot;dependencies&quot;: {
+    &quot;@dcloudio/uni-app&quot;: &quot;3.0.0-5030420261029002&quot;,
+    &quot;@dcloudio/uni-app-plus&quot;: &quot;3.0.0-5030420261029002&quot;,
+    &quot;@dcloudio/uni-components&quot;: &quot;3.0.0-5030420261029002&quot;,
+    &quot;@dcloudio/uni-h5&quot;: &quot;3.0.0-5030420261029002&quot;,
+    &quot;@dcloudio/uni-mp-weixin&quot;: &quot;3.0.0-5030420261029002&quot;,
+    &quot;vue&quot;: &quot;^3.4.21&quot;
+  },
+  &quot;devDependencies&quot;: {
+    &quot;@dcloudio/types&quot;: &quot;^3.4.8&quot;,
+    &quot;@dcloudio/uni-cli-shared&quot;: &quot;3.0.0-5030420261029002&quot;,
+    &quot;@dcloudio/vite-plugin-uni&quot;: &quot;3.0.0-5030420261029002&quot;,
+    &quot;@vue/runtime-core&quot;: &quot;^3.4.21&quot;,
+    &quot;rollup&quot;: &quot;4.14.3&quot;,
+    &quot;vite&quot;: &quot;5.2.8&quot;
+  }
+}
+</code></pre>
+<h3 id="12-viteconfigjs">1.2 vite.config.js</h3>
+<p><strong>作用</strong>：注册 uni 插件。普通 Vite 项目还需要 Vue 插件、别名等配置；
+uni-app 的 <code>uni()</code> 插件已经内置了 Vue 支持与多端编译，所以这里只有一行。</p>
+<pre><code class="language-js">import { defineConfig } from 'vite'
+import uni from '@dcloudio/vite-plugin-uni'
+
+// uni-app Vue3 + Vite 工程：H5 / 小程序 / App 共用同一套源码
+export default defineConfig({
+  plugins: [uni()],
+})
+</code></pre>
+<h3 id="13-indexhtml">1.3 index.html</h3>
+<p><strong>作用</strong>：<strong>H5 专用</strong>的 HTML 模板。小程序和 App 不需要它。</p>
+<ul>
+<li>用一小段脚本动态写入 <code>viewport</code>，支持刘海屏安全区（<code>viewport-fit=cover</code>）。</li>
+<li><code>&lt;div id="app"&gt;</code> 是挂载点；<code>&lt;!--app-html--&gt;</code> 是 uni-app 编译时的占位注释。</li>
+<li>小程序端不会读取这个文件，页面结构由 <code>pages.json</code> + 页面组件决定。</li>
+</ul>
+<p>⚠️ 容易误解：改这里的 <code>&lt;title&gt;</code> 只影响 H5 首屏标题；各页面导航栏标题在 <code>pages.json</code> 里配置。</p>
+<pre><code class="language-html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;zh-CN&quot;&gt;
+  &lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot; /&gt;
+    &lt;script&gt;
+      var coverSupport =
+        'CSS' in window &amp;&amp;
+        typeof CSS.supports === 'function' &amp;&amp;
+        (CSS.supports('top: env(a)') || CSS.supports('top: constant(a)'))
+      document.write(
+        '&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0' +
+          (coverSupport ? ', viewport-fit=cover' : '') +
+          '&quot; /&gt;'
+      )
+    &lt;/script&gt;
+    &lt;title&gt;山海行记 · 环球旅行手账&lt;/title&gt;
+    &lt;!--preload-links--&gt;
+    &lt;!--app-context--&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;div id=&quot;app&quot;&gt;&lt;!--app-html--&gt;&lt;/div&gt;
+    &lt;script type=&quot;module&quot; src=&quot;/src/main.js&quot;&gt;&lt;/script&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<h3 id="14-srcmanifestjson">1.4 src/manifest.json</h3>
+<p><strong>作用</strong>：<strong>各端专属配置</strong>，相当于「一套源码，多端身份证」。</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>name</code> / <code>versionName</code> / <code>versionCode</code></td>
+<td>应用名称与版本（App 打包用）</td>
+</tr>
+<tr>
+<td><code>appid</code></td>
+<td>DCloud 应用标识；当前为空，真机运行/云打包前需要登录 HBuilderX 获取</td>
+</tr>
+<tr>
+<td><code>app-plus</code></td>
+<td>App 端：启动图、Android 权限（联网、网络状态）</td>
+</tr>
+<tr>
+<td><code>mp-weixin</code></td>
+<td>微信小程序：测试号 <code>touristappid</code>、关闭域名校验（仅开发）</td>
+</tr>
+<tr>
+<td><code>h5.router</code></td>
+<td>H5 路由：<code>hash</code> 模式 + <code>base</code> 子路径</td>
+</tr>
+<tr>
+<td><code>vueVersion</code></td>
+<td>固定为 <code>"3"</code>，表示使用 Vue 3 编译器</td>
+</tr>
+</tbody>
+</table>
+<p>⚠️ <code>urlCheck: false</code> 只是开发期跳过域名校验，<strong>正式发布</strong>时图片域名仍需在小程序后台配置，
+或者把图片下载到 <code>src/static/</code> 使用本地路径。</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;山海行记&quot;,
+  &quot;appid&quot;: &quot;&quot;,
+  &quot;description&quot;: &quot;环球旅行手账：目的地图鉴、行程规划、收藏与留言&quot;,
+  &quot;versionName&quot;: &quot;1.0.0&quot;,
+  &quot;versionCode&quot;: &quot;100&quot;,
+  &quot;transformPx&quot;: false,
+  &quot;app-plus&quot;: {
+    &quot;usingComponents&quot;: true,
+    &quot;nvueStyleCompiler&quot;: &quot;uni-app&quot;,
+    &quot;compilerVersion&quot;: 3,
+    &quot;splashscreen&quot;: {
+      &quot;alwaysShowBeforeRender&quot;: true,
+      &quot;waiting&quot;: true,
+      &quot;autoclose&quot;: true,
+      &quot;delay&quot;: 0
+    },
+    &quot;modules&quot;: {},
+    &quot;distribute&quot;: {
+      &quot;android&quot;: {
+        &quot;permissions&quot;: [
+          &quot;&lt;uses-permission android:name=\&quot;android.permission.INTERNET\&quot;/&gt;&quot;,
+          &quot;&lt;uses-permission android:name=\&quot;android.permission.ACCESS_NETWORK_STATE\&quot;/&gt;&quot;
+        ]
+      },
+      &quot;ios&quot;: {},
+      &quot;sdkConfigs&quot;: {}
+    }
+  },
+  &quot;quickapp&quot;: {},
+  &quot;mp-weixin&quot;: {
+    &quot;appid&quot;: &quot;touristappid&quot;,
+    &quot;setting&quot;: {
+      &quot;urlCheck&quot;: false,
+      &quot;es6&quot;: true,
+      &quot;postcss&quot;: true,
+      &quot;minified&quot;: true
+    },
+    &quot;usingComponents&quot;: true
+  },
+  &quot;h5&quot;: {
+    &quot;title&quot;: &quot;山海行记 · 环球旅行手账&quot;,
+    &quot;router&quot;: {
+      &quot;mode&quot;: &quot;hash&quot;,
+      &quot;base&quot;: &quot;/&quot;
+    }
+  },
+  &quot;uniStatistics&quot;: {
+    &quot;enable&quot;: false
+  },
+  &quot;vueVersion&quot;: &quot;3&quot;
+}
+</code></pre>
+<h3 id="15-srcpagesjson">1.5 src/pages.json</h3>
+<p><strong>作用</strong>：页面路由表 + 原生导航栏 + 原生 tabBar。这是 uni-app 最重要的一份配置。</p>
+<ul>
+<li><code>pages</code> 数组的顺序就是路由注册顺序，<strong>第一项是启动页</strong>。</li>
+<li>每一项的 <code>style.navigationBarTitleText</code> 是该页面顶部导航栏标题。</li>
+<li><code>globalStyle</code> 设置全局导航栏颜色、背景色。</li>
+<li><code>tabBar.list</code> 里的 4 个页面会生成底部 tab；<strong>只有这 4 个页面能用 <code>switchTab</code> 跳转</strong>。</li>
+<li>详情页 <code>pages/destination/detail</code> 不在 tabBar 中，所以必须用 <code>navigateTo</code>，并且可以带 query。</li>
+</ul>
+<pre><code class="language-text">tabBar 4 个：首页 / 目的地 / 行程规划 / 关于
+非 tabBar 1 个：目的地详情（从列表页 navigateTo 进入）
+</code></pre>
+<p>💡 新增一个 tab 页面时，要同时改 <code>pages</code> 数组和 <code>tabBar.list</code>；
+tabBar 最多 5 项，且每项至少要有 <code>pagePath</code> 和 <code>text</code>（图标可选）。</p>
+<pre><code class="language-json">{
+  &quot;pages&quot;: [
+    {
+      &quot;path&quot;: &quot;pages/index/index&quot;,
+      &quot;style&quot;: {
+        &quot;navigationBarTitleText&quot;: &quot;山海行记&quot;
+      }
+    },
+    {
+      &quot;path&quot;: &quot;pages/destinations/index&quot;,
+      &quot;style&quot;: {
+        &quot;navigationBarTitleText&quot;: &quot;探索目的地&quot;
+      }
+    },
+    {
+      &quot;path&quot;: &quot;pages/destination/detail&quot;,
+      &quot;style&quot;: {
+        &quot;navigationBarTitleText&quot;: &quot;目的地详情&quot;
+      }
+    },
+    {
+      &quot;path&quot;: &quot;pages/planner/index&quot;,
+      &quot;style&quot;: {
+        &quot;navigationBarTitleText&quot;: &quot;行程规划&quot;
+      }
+    },
+    {
+      &quot;path&quot;: &quot;pages/about/index&quot;,
+      &quot;style&quot;: {
+        &quot;navigationBarTitleText&quot;: &quot;关于山海行记&quot;
+      }
+    }
+  ],
+  &quot;globalStyle&quot;: {
+    &quot;navigationBarTextStyle&quot;: &quot;black&quot;,
+    &quot;navigationBarTitleText&quot;: &quot;山海行记&quot;,
+    &quot;navigationBarBackgroundColor&quot;: &quot;#F7F3EC&quot;,
+    &quot;backgroundColor&quot;: &quot;#F7F3EC&quot;,
+    &quot;backgroundTextStyle&quot;: &quot;dark&quot;
+  },
+  &quot;tabBar&quot;: {
+    &quot;color&quot;: &quot;#776C5E&quot;,
+    &quot;selectedColor&quot;: &quot;#D96C4B&quot;,
+    &quot;backgroundColor&quot;: &quot;#FFFFFF&quot;,
+    &quot;borderStyle&quot;: &quot;black&quot;,
+    &quot;list&quot;: [
+      {
+        &quot;pagePath&quot;: &quot;pages/index/index&quot;,
+        &quot;text&quot;: &quot;首页&quot;
+      },
+      {
+        &quot;pagePath&quot;: &quot;pages/destinations/index&quot;,
+        &quot;text&quot;: &quot;目的地&quot;
+      },
+      {
+        &quot;pagePath&quot;: &quot;pages/planner/index&quot;,
+        &quot;text&quot;: &quot;行程规划&quot;
+      },
+      {
+        &quot;pagePath&quot;: &quot;pages/about/index&quot;,
+        &quot;text&quot;: &quot;关于&quot;
+      }
+    ]
+  }
+}
+</code></pre>
+<h3 id="16-srcuniscss">1.6 src/uni.scss</h3>
+<p><strong>作用</strong>：uni-app 约定俗成的 SCSS 变量文件，主要给插件市场的组件用。</p>
+<p>本项目全部使用普通 CSS，没有安装 <code>sass</code>，所以这些变量<strong>不会生效</strong>，
+保留它只是为了兼容第三方 uni-ui 组件。</p>
+<pre><code class="language-scss">/**
+ * uni-app 内置样式变量（普通 CSS 项目可不使用；保留以兼容插件市场组件）
+ * 如需 SCSS，请先安装 sass，并在 &lt;style lang=&quot;scss&quot;&gt; 中使用。
+ */
+$uni-color-primary: #d96c4b;
+$uni-color-success: #2f9e6e;
+$uni-color-warning: #e9c46a;
+$uni-color-error: #c0392b;
+</code></pre>
+<h2 id="2">第 2 章　启动入口</h2>
+<h3 id="21-srcmainjs">2.1 src/main.js</h3>
+<p><strong>作用</strong>：创建 Vue 应用实例。</p>
+<p>三端共用同一份入口，但挂载方式不同，所以 uni-app 规定必须：</p>
+<ol>
+<li>使用 <code>createSSRApp</code>（而不是 <code>createApp</code>）；</li>
+<li>导出一个名为 <code>createApp</code> 的<strong>工厂函数</strong>；</li>
+<li>返回 <code>{ app }</code>。</li>
+</ol>
+<p><code>createSSRApp</code> 让同一份代码既能在浏览器做客户端渲染，也能在小程序/App 的运行时里工作。</p>
+<pre><code class="language-js">import { createSSRApp } from 'vue'
+import App from './App.vue'
+
+// uni-app 要求使用 createSSRApp 并导出 createApp 工厂函数
+export function createApp() {
+  const app = createSSRApp(App)
+  return { app }
+}
+</code></pre>
+<h3 id="22-srcappvue">2.2 src/App.vue</h3>
+<p><strong>作用</strong>：应用级生命周期 + <strong>全局样式</strong>。</p>
+<h4 id="_3">应用生命周期</h4>
+<ul>
+<li><code>onLaunch</code>：小程序/App 启动时执行一次。</li>
+<li><code>onShow</code>：应用从后台切回前台。</li>
+<li><code>onHide</code>：应用切到后台。</li>
+</ul>
+<p>注意这是 <strong>App 级</strong>生命周期，不是页面级。页面级的是 <code>onLoad</code>、<code>onShow</code>、<code>onReady</code> 等。</p>
+<h4 id="_4">全局样式</h4>
+<ol>
+<li><code>page</code> 选择器设置整页背景、字体、行高（小程序没有 <code>body</code>，用 <code>page</code>）。</li>
+<li>重置 <code>button</code> 的默认边框、内边距（小程序按钮默认样式很重）。</li>
+<li><code>.app</code> 定义一整套 CSS 变量：颜色、阴影、圆角、最大宽度、标题字体。</li>
+<li><code>.app.theme-dark</code> 只覆盖变量值，就实现整站深色主题。</li>
+<li><code>.container</code>、<code>.section</code>、<code>.btn</code>、<code>.card</code>、<code>.chip</code>、<code>.tag</code>、<code>.field</code>、<code>.page-head</code>
+   是全站复用的公共类。</li>
+</ol>
+<h4 id="page">为什么主题变量不写在 <code>page</code> 上？</h4>
+<p>因为小程序里 <code>page</code> 是运行时节点，不能给它动态加 class。主题 class 必须加在每个页面
+最外层的 <code>.app</code> 上（由 <code>AppShell</code> 负责），切换 class 后，所有 <code>var(--xxx)</code> 自动变色。</p>
+<h4 id="appvue-vue">为什么 App.vue 不能像 Vue 网站那样包住所有页面？</h4>
+<p>uni-app 的每个页面是独立编译的，<code>App.vue</code> 只提供全局样式和生命周期，不能当布局容器。
+所以项目写了 <code>AppShell.vue</code>，在每个页面里复用「导航栏 + 内容 + 页脚」。</p>
+<pre><code class="language-vue">&lt;script&gt;
+export default {
+  onLaunch() {
+    console.log('山海行记 App Launch')
+  },
+  onShow() {
+    console.log('山海行记 App Show')
+  },
+  onHide() {
+    console.log('山海行记 App Hide')
+  },
+}
+&lt;/script&gt;
+
+&lt;style&gt;
+/* ============================================================
+   全局样式（uni-app 中 App.vue 的样式作用于所有页面）
+   ============================================================ */
+page {
+  background-color: #f7f3ec;
+  color: #2a241d;
+  font-family: -apple-system, 'PingFang SC', 'Microsoft YaHei', 'Helvetica Neue', sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+view,
+text,
+button,
+input,
+textarea,
+image {
+  box-sizing: border-box;
+}
+
+text {
+  color: inherit;
+}
+
+image {
+  display: block;
+}
+
+/* 重置小程序 button 的默认样式 */
+button {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  color: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+button::after {
+  border: none;
+}
+
+/* ---------- 主题变量：由 AppShell 根节点上的 class 切换 ---------- */
+.app {
+  --bg: #f7f3ec;
+  --bg-soft: #efe7db;
+  --surface: #ffffff;
+  --text: #2a241d;
+  --text-muted: #776c5e;
+  --border: #e4dccd;
+  --accent: #d96c4b;
+  --accent-hover: #c25a3b;
+  --accent-2: #2f5d62;
+  --accent-3: #e9c46a;
+  --accent-soft: #f7e0d7;
+  --success: #2f9e6e;
+  --danger: #c0392b;
+  --shadow-sm: 0 1px 3px rgba(46, 38, 26, 0.08);
+  --shadow: 0 6px 24px rgba(46, 38, 26, 0.08);
+  --shadow-lg: 0 16px 48px rgba(46, 38, 26, 0.14);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --maxw: 1120px;
+  --font-head: 'Noto Serif SC', 'Songti SC', 'SimSun', serif;
+
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+.app.theme-dark {
+  --bg: #171410;
+  --bg-soft: #201b15;
+  --surface: #221d17;
+  --text: #f0e9dd;
+  --text-muted: #a99d8b;
+  --border: #382f24;
+  --accent: #e8855f;
+  --accent-hover: #f29a76;
+  --accent-2: #74a7a6;
+  --accent-3: #e9c46a;
+  --accent-soft: #3a251c;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow: 0 8px 28px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 18px 52px rgba(0, 0, 0, 0.55);
+}
+
+.page {
+  flex: 1;
+}
+
+.container {
+  width: 92%;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.section {
+  padding: 56px 0;
+}
+
+/* ---------- 区块标题 ---------- */
+.section-head {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.section-head .eyebrow {
+  color: var(--accent);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+}
+.section-head .section-head__title {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-top: 6px;
+}
+.section-head .section-head__sub {
+  display: block;
+  color: var(--text-muted);
+  margin-top: 10px;
+  font-size: 15px;
+}
+
+/* ---------- 按钮 ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 28px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 15px;
+  line-height: 1.2;
+  transition: background 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+.btn--primary {
+  background: var(--accent);
+  color: #fff;
+}
+.btn--ghost {
+  background: transparent;
+  color: var(--text);
+  border-color: var(--border);
+}
+.btn--soft {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.btn--light {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.5);
+}
+.btn--block {
+  display: flex;
+  width: 100%;
+}
+
+/* ---------- 卡片 ---------- */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease;
+}
+
+/* ---------- 徽章 / 标签 ---------- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  font-size: 13px;
+  line-height: 1.4;
+  transition: all 0.15s ease;
+}
+.chip--active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.tag {
+  display: inline-block;
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+/* ---------- 表单 ---------- */
+.field {
+  display: block;
+  margin-bottom: 18px;
+}
+.field__label {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.field__input {
+  width: 100%;
+  height: 46px;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 15px;
+}
+.field__textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 15px;
+}
+.field__error {
+  display: block;
+  color: var(--danger);
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* ---------- 页面标题 ---------- */
+.page-head {
+  text-align: center;
+  margin-bottom: 32px;
+}
+.page-head .eyebrow {
+  display: block;
+  color: var(--accent);
+  letter-spacing: 0.18em;
+  font-weight: 600;
+  font-size: 12px;
+}
+.page-head .page-head__title {
+  display: block;
+  font-family: var(--font-head);
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin-top: 6px;
+}
+.page-head .page-head__sub {
+  display: block;
+  color: var(--text-muted);
+  margin-top: 8px;
+  font-size: 14px;
+}
+&lt;/style&gt;
+</code></pre>
+<h2 id="3-composables">第 3 章　组合式函数 composables</h2>
+<p>这四个文件是项目的「共享逻辑层」。它们的共同点是：<strong>把状态定义在函数外面（模块级）</strong>，
+这样所有页面 import 到的是同一个 <code>ref</code>，实现跨页面共享。</p>
+<blockquote>
+<p>如果写在 <code>useXxx()</code> 函数内部，每次调用都会创建一个新 <code>ref</code>，页面之间就不同步了。</p>
+</blockquote>
+<h3 id="31-usesitejs">3.1 useSite.js</h3>
+<p><strong>作用</strong>：提供站点信息（名称、slogan、邮箱）。</p>
+<ul>
+<li><code>site</code> 用 <code>reactive</code> 定义，是一个响应式对象。</li>
+<li><code>provideSite()</code> 必须在<strong>页面</strong>的 <code>setup</code> 中调用，把 <code>site</code> 提供给后代组件。</li>
+<li>子组件用 <code>inject('site')</code> 获取，例如 <code>NavBar</code>、<code>AppFooter</code>。</li>
+<li>这是 Vue 的 <strong>provide / inject</strong>，用于跨层级传值，避免 props 一层层往下传。</li>
+</ul>
+<pre><code class="language-js">// 知识点：provide / inject —— 在页面组件中提供站点配置，供任意后代组件注入
+import { reactive, provide } from 'vue'
+
+export const site = reactive({
+  name: '山海行记',
+  slogan: '把世界，装进手账。',
+  email: 'hello@wanderlog.dev',
+})
+
+export function provideSite() {
+  provide('site', site)
+}
+</code></pre>
+<h3 id="32-usethemejs">3.2 useTheme.js</h3>
+<p><strong>作用</strong>：明暗主题的共享状态 + 持久化 + 原生界面同步。</p>
+<ul>
+<li><code>theme</code> 是模块级 <code>ref</code>，初始值从 <code>uni.getStorageSync('wanderlog-theme')</code> 读取。</li>
+<li><code>watch(theme, ..., { immediate: true })</code>：主题一变就写入本地存储。</li>
+<li><code>applyThemeToNative()</code>：通过条件编译 <code>// #ifndef H5</code>，在非 H5 端同步
+  导航栏、页面背景、tabBar 的颜色。H5 端这段代码会被编译掉。</li>
+<li><code>useTheme()</code> 返回 <code>{ theme, toggleTheme }</code>。</li>
+</ul>
+<p>⚠️ 条件编译的注释<strong>必须</strong>是 <code>// #ifndef H5</code> / <code>// #endif</code> 这种固定格式，
+它不是普通注释，而是编译器指令。</p>
+<pre><code class="language-js">// 知识点：组合式函数、ref、watch、uni 本地存储持久化、原生导航栏同步
+import { ref, watch } from 'vue'
+
+const STORAGE_KEY = 'wanderlog-theme'
+
+function loadTheme() {
+  try {
+    return uni.getStorageSync(STORAGE_KEY) || 'light'
+  } catch (e) {
+    return 'light'
+  }
+}
+
+const theme = ref(loadTheme())
+
+export function applyThemeToNative() {
+  // #ifndef H5
+  const dark = theme.value === 'dark'
+  try {
+    uni.setNavigationBarColor({
+      frontColor: dark ? '#ffffff' : '#000000',
+      backgroundColor: dark ? '#171410' : '#F7F3EC',
+    })
+    uni.setBackgroundColor({
+      backgroundColor: dark ? '#171410' : '#F7F3EC',
+      backgroundColorTop: dark ? '#171410' : '#F7F3EC',
+      backgroundColorBottom: dark ? '#171410' : '#F7F3EC',
+    })
+    uni.setTabBarStyle({
+      color: dark ? '#A99D8B' : '#776C5E',
+      selectedColor: dark ? '#E8855F' : '#D96C4B',
+      backgroundColor: dark ? '#221D17' : '#FFFFFF',
+      borderStyle: dark ? 'white' : 'black',
+    })
+  } catch (e) {
+    // 某些平台不支持，忽略即可
+  }
+  // #endif
+}
+
+watch(
+  theme,
+  (value) =&gt; {
+    try {
+      uni.setStorageSync(STORAGE_KEY, value)
+    } catch (e) {
+      // 忽略存储异常
+    }
+    applyThemeToNative()
+  },
+  { immediate: true }
+)
+
+export function useTheme() {
+  const toggleTheme = () =&gt; {
+    theme.value = theme.value === 'light' ? 'dark' : 'light'
+  }
+  return { theme, toggleTheme }
+}
+</code></pre>
+<h3 id="33-usefavoritesjs">3.3 useFavorites.js</h3>
+<p><strong>作用</strong>：收藏列表的共享状态与持久化。</p>
+<ul>
+<li><code>favorites</code> 是模块级 <code>ref</code>，存目的地 id 的数组。</li>
+<li><code>load()</code> 从 <code>uni.getStorageSync</code> 读取；存储里可能是字符串，也可能是数组，做了兼容。</li>
+<li><code>watch(..., { deep: true })</code>：数组增删都会触发，自动写回本地存储。</li>
+<li><code>isFavorite(id)</code> 判断是否已收藏；<code>toggleFavorite(id)</code> 收藏/取消。</li>
+<li>因为状态是模块级单例，首页卡片、列表页、详情页、NavBar 徽标会同步更新。</li>
+</ul>
+<p>⚠️ 这里用 <code>JSON.stringify</code> 存、<code>JSON.parse</code> 取；如果存储的是对象/数组，建议保持这个习惯。</p>
+<pre><code class="language-js">// 知识点：模块级单例响应式状态（跨页面共享）、watch 深度监听、uni 本地存储持久化
+import { ref, watch } from 'vue'
+
+const STORAGE_KEY = 'wanderlog-favorites'
+
+function load() {
+  try {
+    const raw = uni.getStorageSync(STORAGE_KEY)
+    if (!raw) return []
+    return typeof raw === 'string' ? JSON.parse(raw) : raw
+  } catch (e) {
+    return []
+  }
+}
+
+const favorites = ref(load())
+
+watch(
+  favorites,
+  (value) =&gt; {
+    try {
+      uni.setStorageSync(STORAGE_KEY, JSON.stringify(value))
+    } catch (e) {
+      // 忽略存储异常
+    }
+  },
+  { deep: true }
+)
+
+export function useFavorites() {
+  const isFavorite = (id) =&gt; favorites.value.includes(id)
+
+  const toggleFavorite = (id) =&gt; {
+    const index = favorites.value.indexOf(id)
+    if (index &gt;= 0) favorites.value.splice(index, 1)
+    else favorites.value.push(id)
+  }
+
+  return { favorites, isFavorite, toggleFavorite }
+}
+</code></pre>
+<h3 id="34-usepagescrolljs">3.4 usePageScroll.js</h3>
+<p><strong>作用</strong>：根据页面滚动距离，控制「返回顶部」按钮是否显示。</p>
+<ul>
+<li><code>onPageScroll</code> 是 uni-app 的<strong>页面生命周期</strong>，只能在页面 <code>setup</code> 中注册，
+  不能写在普通组件里，所以封装成组合式函数。</li>
+<li>页面调用 <code>usePageScroll()</code> 得到 <code>showBackTop</code>，再传给 <code>AppShell</code> → <code>BackToTop</code>。</li>
+<li>阈值默认 400px：<code>e.scrollTop &gt; 400</code> 时显示按钮。</li>
+</ul>
+<p>⚠️ 普通 Vue 组件里没有 <code>onPageScroll</code>；如果一定要在组件里监听滚动，
+需要页面把滚动值通过 props 传下来（本项目就是这么做的）。</p>
+<pre><code class="language-js">// 知识点：uni-app 页面生命周期 —— onPageScroll 只能在页面 setup 中注册，
+// 因此封装为组合式函数，由各页面调用，再把结果传给 AppShell / BackToTop。
+import { ref } from 'vue'
+import { onPageScroll } from '@dcloudio/uni-app'
+
+export function usePageScroll(threshold = 400) {
+  const showBackTop = ref(false)
+
+  onPageScroll((e) =&gt; {
+    showBackTop.value = (e.scrollTop || 0) &gt; threshold
+  })
+
+  return { showBackTop }
+}
+</code></pre>
+<h2 id="4-destinationsjs">第 4 章　数据层 destinations.js</h2>
+<p><strong>作用</strong>：模拟后端接口，提供 10 个目的地。</p>
+<ul>
+<li>顶部 <code>img(seed, w, h)</code> 是一个小工厂函数，用 <code>picsum.photos</code> 生成占位图 URL。</li>
+<li>每个目的地对象的字段如下：</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>含义</th>
+<th>用在哪</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>id</code></td>
+<td>唯一标识</td>
+<td>详情页 query、收藏、列表 key</td>
+</tr>
+<tr>
+<td><code>name</code> / <code>country</code> / <code>region</code></td>
+<td>名称、国家、大洲</td>
+<td>卡片、搜索、筛选</td>
+</tr>
+<tr>
+<td><code>rating</code></td>
+<td>评分 0–5</td>
+<td>星级、排序</td>
+</tr>
+<tr>
+<td><code>tags</code></td>
+<td>标签数组</td>
+<td>标签胶囊、搜索</td>
+</tr>
+<tr>
+<td><code>featured</code></td>
+<td>是否精选</td>
+<td>首页只取前 3 个</td>
+</tr>
+<tr>
+<td><code>summary</code> / <code>description</code></td>
+<td>简介 / 详情</td>
+<td>卡片 / 详情页</td>
+</tr>
+<tr>
+<td><code>image</code> / <code>gallery</code></td>
+<td>封面 / 图集</td>
+<td>卡片 / 详情图集</td>
+</tr>
+<tr>
+<td><code>facts</code></td>
+<td>实用信息对象</td>
+<td>详情页 FactList</td>
+</tr>
+</tbody>
+</table>
+<p>下面是文件开头和一个完整数据对象（其余 9 个结构相同）：</p>
+<pre><code class="language-js">const img = (seed, w = 800, h = 600) =&gt; `https://picsum.photos/seed/${seed}/${w}/${h}`
+
+export const destinations = [
+  {
+    id: 'fuji',
+    name: '富士山',
+    country: '日本',
+    region: '亚洲',
+    rating: 4.9,
+    tags: ['自然', '徒步', '摄影'],
+    featured: true,
+    summary: '日本最高峰，四季皆景的圣岳。',
+    description: '富士山海拔 3776 米，是日本的象征……',
+    image: img('fuji'),
+    gallery: [img('fuji', 1200, 800), img('fuji-2'), img('fuji-3'), img('fuji-4')],
+    facts: { 最佳季节: '7–9 月登山，11–2 月赏雪', 建议天数: '3–5 天', 预算: '中等', 语言: '日语' },
+  },
+  // …… 其余 9 个目的地结构相同
+]
+</code></pre>
+<p>💡 想加一个目的地，只需要往数组里追加一个同结构的对象；
+首页、列表、统计、搜索会自动多出这一条。</p>
+<h2 id="5">第 5 章　五个页面</h2>
+<p>页面和组件的区别：<strong>页面</strong>在 <code>pages.json</code> 注册，可以被路由跳转；<strong>组件</strong>只能被页面或
+其他组件引用。每个页面都用 <code>AppShell</code> 包起来，保证导航栏、页脚、返回顶部一致。</p>
+<h3 id="51-pagesindexindexvue">5.1 首页 pages/index/index.vue</h3>
+<p><strong>职责</strong>：品牌头图、统计数字、功能卖点、精选目的地、行动按钮。</p>
+<p>关键逻辑：</p>
+<ul>
+<li><code>provideSite()</code>：向 NavBar / Footer 提供站点信息。</li>
+<li><code>usePageScroll()</code>：得到 <code>showBackTop</code>，传给 <code>AppShell</code>。</li>
+<li><code>useFavorites()</code>：得到收藏判断和切换函数。</li>
+<li><code>featured</code> 是 <code>computed</code>：筛选 <code>featured === true</code> 的前 3 条。</li>
+<li><code>features</code> 是写死的 3 张功能卡数据。</li>
+<li><code>goDestinations()</code> / <code>goPlanner()</code>：用 <code>uni.switchTab</code> 跳 tab 页。</li>
+<li>模板顺序：<code>HeroBanner</code> → <code>StatsBar</code> → 功能卡 → 精选目的地 → CTA。</li>
+</ul>
+<p>⚠️ 首页里的按钮跳转必须用 <code>switchTab</code>，因为目的地和行程规划都是 tab 页；
+用 <code>navigateTo</code> 跳 tab 页会失败。</p>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：computed、v-for、组件组合、组合式函数复用、provide
+import { computed } from 'vue'
+import AppShell from '../../components/AppShell.vue'
+import HeroBanner from '../../components/HeroBanner.vue'
+import StatsBar from '../../components/StatsBar.vue'
+import SectionTitle from '../../components/SectionTitle.vue'
+import FeatureCard from '../../components/FeatureCard.vue'
+import DestinationCard from '../../components/DestinationCard.vue'
+import BaseButton from '../../components/BaseButton.vue'
+import { destinations } from '../../data/destinations'
+import { useFavorites } from '../../composables/useFavorites'
+import { usePageScroll } from '../../composables/usePageScroll'
+import { provideSite } from '../../composables/useSite'
+
+provideSite()
+const { showBackTop } = usePageScroll()
+const { isFavorite, toggleFavorite } = useFavorites()
+
+const featured = computed(() =&gt; destinations.filter((d) =&gt; d.featured).slice(0, 3))
+
+const features = [
+  { icon: '🗺️', title: '灵感目的地', desc: '精选全球热门目的地，按大洲筛选，快速找到心之所向。' },
+  { icon: '📝', title: '行程规划', desc: '用待办清单规划每一天，进度条实时反馈，本地自动保存。' },
+  { icon: '♥️', title: '收藏夹', desc: '一键收藏心动风景，导航栏徽标实时显示收藏数量。' },
+]
+
+function goDestinations() {
+  uni.switchTab({ url: '/pages/destinations/index' })
+}
+
+function goPlanner() {
+  uni.switchTab({ url: '/pages/planner/index' })
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;AppShell :show-back-top=&quot;showBackTop&quot;&gt;
+    &lt;HeroBanner&gt;
+      &lt;template #footer&gt;
+        &lt;text class=&quot;hero-note&quot;&gt;已收录 {{ destinations.length }} 个目的地 · 持续更新中&lt;/text&gt;
+      &lt;/template&gt;
+    &lt;/HeroBanner&gt;
+    &lt;StatsBar /&gt;
+
+    &lt;view class=&quot;section&quot;&gt;
+      &lt;view class=&quot;container&quot;&gt;
+        &lt;SectionTitle
+          eyebrow=&quot;WHY WANDERLOG&quot;
+          title=&quot;为什么选择山海行记&quot;
+          subtitle=&quot;从灵感到出发，一站式记录你的旅行计划。&quot;
+        /&gt;
+        &lt;view class=&quot;feature-grid&quot;&gt;
+          &lt;view v-for=&quot;f in features&quot; :key=&quot;f.title&quot; class=&quot;grid-col&quot;&gt;
+            &lt;FeatureCard v-bind=&quot;f&quot; /&gt;
+          &lt;/view&gt;
+        &lt;/view&gt;
+      &lt;/view&gt;
+    &lt;/view&gt;
+
+    &lt;view class=&quot;section section--alt&quot;&gt;
+      &lt;view class=&quot;container&quot;&gt;
+        &lt;SectionTitle
+          eyebrow=&quot;FEATURED&quot;
+          title=&quot;精选目的地&quot;
+          subtitle=&quot;编辑团队为你甄选的三处此生必去之地。&quot;
+        /&gt;
+        &lt;view class=&quot;featured-grid&quot;&gt;
+          &lt;view v-for=&quot;d in featured&quot; :key=&quot;d.id&quot; class=&quot;grid-col&quot;&gt;
+            &lt;DestinationCard
+              :destination=&quot;d&quot;
+              :favorite=&quot;isFavorite(d.id)&quot;
+              @toggle-favorite=&quot;toggleFavorite(d.id)&quot;
+            /&gt;
+          &lt;/view&gt;
+        &lt;/view&gt;
+        &lt;view class=&quot;center&quot;&gt;
+          &lt;view class=&quot;btn btn--soft&quot; @click=&quot;goDestinations&quot;&gt;
+            &lt;text&gt;查看全部目的地 →&lt;/text&gt;
+          &lt;/view&gt;
+        &lt;/view&gt;
+      &lt;/view&gt;
+    &lt;/view&gt;
+
+    &lt;view class=&quot;section&quot;&gt;
+      &lt;view class=&quot;container&quot;&gt;
+        &lt;view class=&quot;cta&quot;&gt;
+          &lt;text class=&quot;cta__title&quot;&gt;准备好出发了吗？&lt;/text&gt;
+          &lt;text class=&quot;cta__desc&quot;&gt;现在就开始规划你的下一段旅程。&lt;/text&gt;
+          &lt;BaseButton variant=&quot;primary&quot; @click=&quot;goPlanner&quot;&gt;
+            &lt;template #icon&gt;&lt;text&gt;✈️&lt;/text&gt;&lt;/template&gt;
+            &lt;text&gt;开始规划行程&lt;/text&gt;
+          &lt;/BaseButton&gt;
+        &lt;/view&gt;
+      &lt;/view&gt;
+    &lt;/view&gt;
+  &lt;/AppShell&gt;
+&lt;/template&gt;
+</code></pre>
+<h3 id="52-pagesdestinationsindexvue">5.2 目的地列表 pages/destinations/index.vue</h3>
+<p><strong>职责</strong>：搜索 + 按大洲筛选 + 排序。</p>
+<p>关键逻辑：</p>
+<ol>
+<li><code>keyword</code>、<code>region</code>、<code>sort</code> 三个 <code>ref</code> 保存筛选条件。</li>
+<li><code>regions</code>：用 <code>Set</code> 对 <code>region</code> 去重，得到筛选胶囊。</li>
+<li><code>filtered</code> 是核心 <code>computed</code>：
+   - 关键词匹配 <code>name</code> / <code>country</code> / <code>region</code> / <code>tags</code>；
+   - 大洲筛选；
+   - 按评分或名称排序（名称用 <code>localeCompare(..., 'zh')</code> 支持中文排序）。</li>
+<li><code>SearchBar</code> 用 <code>v-model</code> 绑定 <code>keyword</code>。</li>
+<li><code>FilterBar</code> 用两个命名 <code>v-model</code>：<code>v-model:region</code>、<code>v-model:sort</code>。</li>
+<li>有结果渲染 <code>DestinationList</code>，无结果渲染 <code>EmptyState</code>。</li>
+</ol>
+<p>🧠 这是「<strong>数据驱动视图</strong>」最典型的例子：不操作 DOM，只改 <code>keyword</code>，
+<code>filtered</code> 自动重算，列表自动重渲染。</p>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：ref、computed（联动筛选/搜索/排序）、组件组合、v-if/v-else
+import { ref, computed } from 'vue'
+import AppShell from '../../components/AppShell.vue'
+import SearchBar from '../../components/SearchBar.vue'
+import FilterBar from '../../components/FilterBar.vue'
+import DestinationList from '../../components/DestinationList.vue'
+import EmptyState from '../../components/EmptyState.vue'
+import { destinations } from '../../data/destinations'
+import { useFavorites } from '../../composables/useFavorites'
+import { usePageScroll } from '../../composables/usePageScroll'
+import { provideSite } from '../../composables/useSite'
+
+provideSite()
+const { showBackTop } = usePageScroll()
+
+const keyword = ref('')
+const region = ref('全部')
+const sort = ref('default')
+const { isFavorite, toggleFavorite } = useFavorites()
+
+const regions = computed(() =&gt; [...new Set(destinations.map((d) =&gt; d.region))])
+
+const filtered = computed(() =&gt; {
+  const kw = keyword.value.trim()
+  let list = destinations.filter((d) =&gt; {
+    const matchKw =
+      !kw ||
+      d.name.includes(kw) ||
+      d.country.includes(kw) ||
+      d.region.includes(kw) ||
+      d.tags.some((t) =&gt; t.includes(kw))
+    const matchRegion = region.value === '全部' || d.region === region.value
+    return matchKw &amp;&amp; matchRegion
+  })
+  if (sort.value === 'rating') list = [...list].sort((a, b) =&gt; b.rating - a.rating)
+  if (sort.value === 'name') list = [...list].sort((a, b) =&gt; a.name.localeCompare(b.name, 'zh'))
+  return list
+})
+
+function clearFilters() {
+  keyword.value = ''
+  region.value = '全部'
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;AppShell :show-back-top=&quot;showBackTop&quot;&gt;
+    &lt;view class=&quot;section&quot;&gt;
+      &lt;view class=&quot;container&quot;&gt;
+        &lt;view class=&quot;page-head&quot;&gt;
+          &lt;text class=&quot;eyebrow&quot;&gt;DESTINATIONS&lt;/text&gt;
+          &lt;text class=&quot;page-head__title&quot;&gt;探索目的地&lt;/text&gt;
+          &lt;text class=&quot;page-head__sub&quot;&gt;{{ filtered.length }} 个目的地 · 支持搜索、按大洲筛选与排序&lt;/text&gt;
+        &lt;/view&gt;
+
+        &lt;view class=&quot;toolbar&quot;&gt;
+          &lt;SearchBar v-model=&quot;keyword&quot; /&gt;
+          &lt;FilterBar v-model:region=&quot;region&quot; v-model:sort=&quot;sort&quot; :regions=&quot;regions&quot; /&gt;
+        &lt;/view&gt;
+
+        &lt;DestinationList
+          v-if=&quot;filtered.length&quot;
+          :destinations=&quot;filtered&quot;
+          :is-favorite=&quot;isFavorite&quot;
+          @toggle-favorite=&quot;toggleFavorite&quot;
+        /&gt;
+        &lt;EmptyState v-else icon=&quot;🔍&quot; title=&quot;没有找到匹配的目的地&quot; desc=&quot;换个关键词或筛选条件试试吧。&quot;&gt;
+          &lt;view class=&quot;btn btn--soft&quot; @click=&quot;clearFilters&quot;&gt;
+            &lt;text&gt;清空筛选&lt;/text&gt;
+          &lt;/view&gt;
+        &lt;/EmptyState&gt;
+      &lt;/view&gt;
+    &lt;/view&gt;
+  &lt;/AppShell&gt;
+&lt;/template&gt;
+</code></pre>
+<h3 id="53-pagesdestinationdetailvue">5.3 目的地详情 pages/destination/detail.vue</h3>
+<p><strong>职责</strong>：展示单个目的地的图集、评分、标签、介绍、实用信息。</p>
+<p>关键逻辑：</p>
+<ul>
+<li><code>onLoad(options)</code>：接收列表页 <code>navigateTo</code> 传来的 <code>?id=fuji</code>。
+  这是小程序 / App 获取页面参数的标准方式，<strong>不是</strong> <code>route.params</code>。</li>
+<li><code>dest</code> 是 <code>computed</code>：根据 id 从数据里 <code>find</code>。</li>
+<li><code>watch(dest)</code>：找到后设置原生导航栏标题，并滚回顶部。</li>
+<li><code>goBack()</code>：先检查 <code>getCurrentPages().length</code>，有上一页就 <code>navigateBack</code>，
+  否则 <code>switchTab</code> 回列表页。这样直接打开详情页时也不会卡死。</li>
+<li>找不到 id 时渲染 <code>EmptyState</code>「目的地不存在」。</li>
+</ul>
+<p>⚠️ <code>onLoad</code> 只在页面创建时执行一次；如果从详情页再跳另一个详情页，
+需要用 <code>onLoad</code> 重新取参，或者用 <code>onShow</code> + 监听参数变化。</p>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：页面参数 onLoad、computed、watch、v-if/v-else、组件复用
+import { ref, computed, watch } from 'vue'
+import { onLoad } from '@dcloudio/uni-app'
+import AppShell from '../../components/AppShell.vue'
+import PhotoGallery from '../../components/PhotoGallery.vue'
+import RatingStars from '../../components/RatingStars.vue'
+import TagBadge from '../../components/TagBadge.vue'
+import FactList from '../../components/FactList.vue'
+import FavoriteButton from '../../components/FavoriteButton.vue'
+import EmptyState from '../../components/EmptyState.vue'
+import { destinations } from '../../data/destinations'
+import { useFavorites } from '../../composables/useFavorites'
+import { usePageScroll } from '../../composables/usePageScroll'
+import { provideSite } from '../../composables/useSite'
+
+provideSite()
+const { showBackTop } = usePageScroll()
+const { isFavorite, toggleFavorite } = useFavorites()
+
+const id = ref('')
+
+// 小程序 / App 通过 onLoad(options) 接收 navigateTo 的 query 参数
+onLoad((options) =&gt; {
+  id.value = (options &amp;&amp; options.id) || ''
+})
+
+const dest = computed(() =&gt; destinations.find((d) =&gt; d.id === id.value))
+
+watch(dest, (value) =&gt; {
+  if (value) {
+    uni.setNavigationBarTitle({ title: value.name })
+    uni.pageScrollTo({ scrollTop: 0, duration: 0 })
+  }
+})
+
+function goBack() {
+  const pages = getCurrentPages()
+  if (pages.length &gt; 1) {
+    uni.navigateBack()
+  } else {
+    uni.switchTab({ url: '/pages/destinations/index' })
+  }
+}
+
+function goList() {
+  uni.switchTab({ url: '/pages/destinations/index' })
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;AppShell :show-back-top=&quot;showBackTop&quot;&gt;
+    &lt;view class=&quot;section&quot;&gt;
+      &lt;view class=&quot;container&quot;&gt;
+        &lt;template v-if=&quot;dest&quot;&gt;
+          &lt;view class=&quot;crumb&quot; @click=&quot;goBack&quot;&gt;
+            &lt;text class=&quot;crumb__link&quot;&gt;← 返回目的地列表&lt;/text&gt;
+          &lt;/view&gt;
+
+          &lt;view class=&quot;detail&quot;&gt;
+            &lt;view class=&quot;detail__gallery&quot;&gt;
+              &lt;PhotoGallery :images=&quot;dest.gallery&quot; /&gt;
+            &lt;/view&gt;
+
+            &lt;view class=&quot;detail__body card&quot;&gt;
+              &lt;view class=&quot;detail__head&quot;&gt;
+                &lt;view class=&quot;detail__title-wrap&quot;&gt;
+                  &lt;text class=&quot;detail__name&quot;&gt;{{ dest.name }}&lt;/text&gt;
+                  &lt;text class=&quot;detail__country&quot;&gt;{{ dest.country }} · {{ dest.region }}&lt;/text&gt;
+                &lt;/view&gt;
+                &lt;FavoriteButton
+                  :active=&quot;isFavorite(dest.id)&quot;
+                  @toggle=&quot;toggleFavorite(dest.id)&quot;
+                /&gt;
+              &lt;/view&gt;
+
+              &lt;RatingStars :model-value=&quot;dest.rating&quot; readonly /&gt;
+
+              &lt;view class=&quot;detail__tags&quot;&gt;
+                &lt;TagBadge v-for=&quot;t in dest.tags&quot; :key=&quot;t&quot; :text=&quot;t&quot; /&gt;
+              &lt;/view&gt;
+
+              &lt;text class=&quot;detail__desc&quot;&gt;{{ dest.description }}&lt;/text&gt;
+
+              &lt;text class=&quot;detail__sub&quot;&gt;实用信息&lt;/text&gt;
+              &lt;FactList :facts=&quot;dest.facts&quot; /&gt;
+            &lt;/view&gt;
+          &lt;/view&gt;
+        &lt;/template&gt;
+
+        &lt;EmptyState v-else icon=&quot;🧭&quot; title=&quot;目的地不存在&quot; desc=&quot;你访问的地址可能已失效。&quot;&gt;
+          &lt;view class=&quot;btn btn--primary&quot; @click=&quot;goList&quot;&gt;
+            &lt;text&gt;返回目的地列表&lt;/text&gt;
+          &lt;/view&gt;
+        &lt;/EmptyState&gt;
+      &lt;/view&gt;
+    &lt;/view&gt;
+  &lt;/AppShell&gt;
+&lt;/template&gt;
+</code></pre>
+<h3 id="54-pagesplannerindexvue">5.4 行程规划 pages/planner/index.vue</h3>
+<p><strong>职责</strong>：待办清单的增删改查 + 完成进度 + 本地持久化。</p>
+<p>关键逻辑：</p>
+<ul>
+<li><code>items</code>：清单数组；<code>filter</code>：<code>all</code> / <code>todo</code> / <code>done</code>。</li>
+<li><code>onMounted</code>：从 <code>uni.getStorageSync('wanderlog-planner')</code> 读取。</li>
+<li><code>watch(items, ..., { deep: true })</code>：任何增删改都自动写回存储。</li>
+<li><code>add</code> / <code>remove</code> / <code>toggle</code> / <code>update</code>：四个操作函数。</li>
+<li><code>inspire()</code>：从 6 条预设建议里随机挑一条加入清单。</li>
+<li><code>filtered</code>、<code>doneCount</code>、<code>progress</code>：三个 <code>computed</code> 派生数据。</li>
+<li>子组件：<code>PlannerForm</code> 负责输入，<code>PlannerItem</code> 负责单条显示，<code>ProgressBar</code> 负责进度。</li>
+</ul>
+<p>🧠 这里的持久化是「<strong>状态一变就保存</strong>」，不需要手动点保存按钮。</p>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：ref、computed、watch 深度持久化、onMounted、v-for、v-if/v-else
+import { ref, computed, watch, onMounted } from 'vue'
+import AppShell from '../../components/AppShell.vue'
+import PlannerForm from '../../components/PlannerForm.vue'
+import PlannerItem from '../../components/PlannerItem.vue'
+import ProgressBar from '../../components/ProgressBar.vue'
+import EmptyState from '../../components/EmptyState.vue'
+import { usePageScroll } from '../../composables/usePageScroll'
+import { provideSite } from '../../composables/useSite'
+
+provideSite()
+const { showBackTop } = usePageScroll()
+
+const STORAGE_KEY = 'wanderlog-planner'
+const items = ref([])
+const filter = ref('all')
+
+const suggestions = [
+  '兑换当地货币并通知银行',
+  '预订机场往返接送',
+  '购买旅行保险',
+  '下载离线地图',
+  '确认酒店入住时间',
+  '准备常用药品',
+]
+
+function loadItems() {
+  try {
+    const raw = uni.getStorageSync(STORAGE_KEY)
+    if (!raw) return []
+    return typeof raw === 'string' ? JSON.parse(raw) : raw
+  } catch (e) {
+    return []
+  }
+}
+
+onMounted(() =&gt; {
+  items.value = loadItems()
+})
+
+// 深度监听：任何增删改都会自动写回 uni 本地存储
+watch(
+  items,
+  (value) =&gt; {
+    try {
+      uni.setStorageSync(STORAGE_KEY, JSON.stringify(value))
+    } catch (e) {
+      // 忽略存储异常
+    }
+  },
+  { deep: true }
+)
+
+function add(payload) {
+  items.value.push({ id: Date.now(), text: payload.text, priority: payload.priority, done: false })
+}
+function remove(id) {
+  items.value = items.value.filter((i) =&gt; i.id !== id)
+}
+function toggle(id) {
+  const item = items.value.find((i) =&gt; i.id === id)
+  if (item) item.done = !item.done
+}
+function update(id, text) {
+  const item = items.value.find((i) =&gt; i.id === id)
+  if (item) item.text = text
+}
+function inspire() {
+  const pick = suggestions[Math.floor(Math.random() * suggestions.length)]
+  add({ text: pick, priority: '低' })
+}
+
+const filtered = computed(() =&gt; {
+  if (filter.value === 'done') return items.value.filter((i) =&gt; i.done)
+  if (filter.value === 'todo') return items.value.filter((i) =&gt; !i.done)
+  return items.value
+})
+const doneCount = computed(() =&gt; items.value.filter((i) =&gt; i.done).length)
+const progress = computed(() =&gt;
+  items.value.length ? Math.round((doneCount.value / items.value.length) * 100) : 0
+)
+
+const filters = [
+  { key: 'all', label: '全部' },
+  { key: 'todo', label: '未完成' },
+  { key: 'done', label: '已完成' },
+]
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;AppShell :show-back-top=&quot;showBackTop&quot;&gt;
+    &lt;view class=&quot;section&quot;&gt;
+      &lt;view class=&quot;container planner&quot;&gt;
+        &lt;view class=&quot;page-head&quot;&gt;
+          &lt;text class=&quot;eyebrow&quot;&gt;PLANNER&lt;/text&gt;
+          &lt;text class=&quot;page-head__title&quot;&gt;行程规划&lt;/text&gt;
+          &lt;text class=&quot;page-head__sub&quot;&gt;把出发前的琐事列成清单，逐项打勾，进度自动保存。&lt;/text&gt;
+        &lt;/view&gt;
+
+        &lt;view class=&quot;planner__top card&quot;&gt;
+          &lt;PlannerForm @add=&quot;add&quot; /&gt;
+          &lt;view class=&quot;planner__bar&quot;&gt;
+            &lt;ProgressBar :value=&quot;progress&quot; /&gt;
+            &lt;text class=&quot;planner__count&quot;&gt;{{ doneCount }} / {{ items.length }} 已完成&lt;/text&gt;
+          &lt;/view&gt;
+        &lt;/view&gt;
+
+        &lt;view class=&quot;planner__toolbar&quot;&gt;
+          &lt;view class=&quot;planner__filters&quot;&gt;
+            &lt;view
+              v-for=&quot;f in filters&quot;
+              :key=&quot;f.key&quot;
+              class=&quot;chip&quot;
+              :class=&quot;{ 'chip--active': filter === f.key }&quot;
+              @click=&quot;filter = f.key&quot;
+            &gt;
+              &lt;text&gt;{{ f.label }}&lt;/text&gt;
+            &lt;/view&gt;
+          &lt;/view&gt;
+          &lt;view class=&quot;btn btn--soft&quot; @click=&quot;inspire&quot;&gt;
+            &lt;text&gt;✨ 随机灵感&lt;/text&gt;
+          &lt;/view&gt;
+        &lt;/view&gt;
+
+        &lt;view v-if=&quot;filtered.length&quot; class=&quot;planner__list&quot;&gt;
+          &lt;PlannerItem
+            v-for=&quot;item in filtered&quot;
+            :key=&quot;item.id&quot;
+            :item=&quot;item&quot;
+            @toggle=&quot;toggle(item.id)&quot;
+            @remove=&quot;remove(item.id)&quot;
+            @update=&quot;update(item.id, $event)&quot;
+          /&gt;
+        &lt;/view&gt;
+        &lt;EmptyState v-else icon=&quot;📝&quot; title=&quot;清单空空如也&quot; desc=&quot;添加第一条待办，或试试「随机灵感」。&quot;&gt;
+          &lt;view class=&quot;btn btn--primary&quot; @click=&quot;inspire&quot;&gt;
+            &lt;text&gt;给我一点灵感&lt;/text&gt;
+          &lt;/view&gt;
+        &lt;/EmptyState&gt;
+      &lt;/view&gt;
+    &lt;/view&gt;
+  &lt;/AppShell&gt;
+&lt;/template&gt;
+</code></pre>
+<h3 id="55-pagesaboutindexvue">5.5 关于 pages/about/index.vue</h3>
+<p><strong>职责</strong>：项目介绍、技术栈、知识点展示、留言表单。</p>
+<p>关键逻辑：</p>
+<ul>
+<li>直接 import <code>site</code> 和 <code>provideSite</code>，页面自己展示站点信息。</li>
+<li><code>techs</code>、<code>features</code>：两组展示数据。</li>
+<li><code>copyEmail()</code>：调用 <code>uni.setClipboardData</code> 复制邮箱，再用 <code>uni.showToast</code> 提示。</li>
+<li><code>ContactForm</code>：留言表单组件。</li>
+</ul>
+<p>⚠️ H5 端 <code>uni.setClipboardData</code> 依赖浏览器剪贴板权限；小程序端需要在用户点击事件里调用。</p>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：provide/inject（页面向下提供站点信息）、组件组合、剪贴板 API
+import AppShell from '../../components/AppShell.vue'
+import SectionTitle from '../../components/SectionTitle.vue'
+import ContactForm from '../../components/ContactForm.vue'
+import FeatureCard from '../../components/FeatureCard.vue'
+import { site, provideSite } from '../../composables/useSite'
+import { usePageScroll } from '../../composables/usePageScroll'
+
+provideSite()
+const { showBackTop } = usePageScroll()
+
+const techs = [
+  'uni-app（Vue 3 组合式 API / &lt;script setup&gt;）',
+  'pages.json 路由 + 原生 tabBar',
+  'HBuilderX 多端运行与发布',
+  'CSS 变量 + 明暗主题',
+]
+
+const features = [
+  { icon: '🔄', title: '响应式状态', desc: 'ref 与 reactive 驱动视图自动更新，computed 派生数据，watch 持久化。' },
+  { icon: '🧩', title: '组件通信', desc: 'props / emit / defineModel / provide-inject / 插槽，覆盖组件间多种通信方式。' },
+  { icon: '🛣️', title: '多端与路由', desc: '一套代码编译到 H5、微信小程序与 Android App，页面参数通过 onLoad 获取。' },
+]
+
+function copyEmail() {
+  uni.setClipboardData({
+    data: site.email,
+    success: () =&gt; uni.showToast({ title: '邮箱已复制', icon: 'none' }),
+  })
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;AppShell :show-back-top=&quot;showBackTop&quot;&gt;
+    &lt;view class=&quot;section&quot;&gt;
+      &lt;view class=&quot;container&quot;&gt;
+        &lt;SectionTitle
+          eyebrow=&quot;ABOUT&quot;
+          title=&quot;关于山海行记&quot;
+          subtitle=&quot;一个用 Vue 3 + uni-app 从零构建的旅行主题多端应用。&quot;
+        /&gt;
+
+        &lt;view class=&quot;about-grid&quot;&gt;
+          &lt;view class=&quot;about__text card&quot;&gt;
+            &lt;text class=&quot;about__p&quot;&gt;
+              「山海行记」最初是一个 Vue 3 + Vite 的纯 Web 项目，本次实验把它迁移为 uni-app 工程：
+              同一套组件与组合式函数，可用于 H5、微信小程序和 Android App。
+            &lt;/text&gt;
+            &lt;text class=&quot;about__p&quot;&gt;
+              项目包含 5 个页面与 24 个业务组件，覆盖官方教程从「声明式渲染」到「组合式函数」的绝大多数知识点。
+            &lt;/text&gt;
+            &lt;text class=&quot;about__p&quot;&gt;所有数据均为前端模拟，本地存储用于持久化主题、收藏与行程清单。&lt;/text&gt;
+            &lt;view class=&quot;about__contact&quot;&gt;
+              &lt;text&gt;📮 联系邮箱：&lt;/text&gt;
+              &lt;text class=&quot;about__mail&quot; @click=&quot;copyEmail&quot;&gt;{{ site.email }}&lt;/text&gt;
+            &lt;/view&gt;
+          &lt;/view&gt;
+
+          &lt;view class=&quot;about__tech card&quot;&gt;
+            &lt;text class=&quot;about__tech-title&quot;&gt;技术栈&lt;/text&gt;
+            &lt;view v-for=&quot;t in techs&quot; :key=&quot;t&quot; class=&quot;about__list-item&quot;&gt;
+              &lt;text class=&quot;about__dot&quot;&gt;·&lt;/text&gt;
+              &lt;text class=&quot;about__list-text&quot;&gt;{{ t }}&lt;/text&gt;
+            &lt;/view&gt;
+          &lt;/view&gt;
+        &lt;/view&gt;
+      &lt;/view&gt;
+    &lt;/view&gt;
+
+    &lt;view class=&quot;section section--alt&quot;&gt;
+      &lt;view class=&quot;container&quot;&gt;
+        &lt;SectionTitle eyebrow=&quot;FEATURES&quot; title=&quot;它演示了哪些知识点&quot; /&gt;
+        &lt;view class=&quot;feature-grid&quot;&gt;
+          &lt;view v-for=&quot;f in features&quot; :key=&quot;f.title&quot; class=&quot;grid-col&quot;&gt;
+            &lt;FeatureCard v-bind=&quot;f&quot; /&gt;
+          &lt;/view&gt;
+        &lt;/view&gt;
+      &lt;/view&gt;
+    &lt;/view&gt;
+
+    &lt;view class=&quot;section&quot;&gt;
+      &lt;view class=&quot;container&quot;&gt;
+        &lt;SectionTitle
+          eyebrow=&quot;CONTACT&quot;
+          title=&quot;给我留言&quot;
+          subtitle=&quot;演示表单双向绑定与校验，提交后仅做前端展示。&quot;
+        /&gt;
+        &lt;view class=&quot;contact-wrap&quot;&gt;
+          &lt;ContactForm /&gt;
+        &lt;/view&gt;
+      &lt;/view&gt;
+    &lt;/view&gt;
+  &lt;/AppShell&gt;
+&lt;/template&gt;
+</code></pre>
+<h2 id="6">第 6 章　二十五个组件</h2>
+<p>组件可以按职责分成 5 组：</p>
+<table>
+<thead>
+<tr>
+<th>分组</th>
+<th>数量</th>
+<th>组件</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>布局外壳</td>
+<td>4</td>
+<td>AppShell、NavBar、AppFooter、BackToTop</td>
+</tr>
+<tr>
+<td>通用展示</td>
+<td>7</td>
+<td>SectionTitle、FeatureCard、TagBadge、EmptyState、BaseButton、RatingStars、ProgressBar</td>
+</tr>
+<tr>
+<td>目的地相关</td>
+<td>9</td>
+<td>SearchBar、FilterBar、DestinationList、DestinationCard、HeroBanner、StatsBar、PhotoGallery、FactList、FavoriteButton</td>
+</tr>
+<tr>
+<td>表单与清单</td>
+<td>4</td>
+<td>FormInput、ContactForm、PlannerForm、PlannerItem</td>
+</tr>
+<tr>
+<td>主题</td>
+<td>1</td>
+<td>ThemeToggle</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_5">组件通信方式速查</h3>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>用在哪</th>
+<th>例子</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>props 父传子</td>
+<td>几乎所有展示组件</td>
+<td><code>:destination="d"</code></td>
+</tr>
+<tr>
+<td>emit 子传父</td>
+<td>收藏、表单提交、清单操作</td>
+<td><code>@toggle-favorite</code>、<code>@add</code></td>
+</tr>
+<tr>
+<td><code>v-model</code> / <code>defineModel</code></td>
+<td>输入框、筛选器</td>
+<td><code>v-model="keyword"</code>、<code>v-model:region</code></td>
+</tr>
+<tr>
+<td>插槽 slot</td>
+<td>按钮图标、空状态操作、头图补充</td>
+<td><code>&lt;template #icon&gt;</code>、<code>&lt;slot name="footer"&gt;</code></td>
+</tr>
+<tr>
+<td>provide / inject</td>
+<td>站点信息跨层级传递</td>
+<td><code>site</code></td>
+</tr>
+<tr>
+<td>模块级共享状态</td>
+<td>主题、收藏</td>
+<td><code>useTheme</code>、<code>useFavorites</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="61">6.1 布局外壳</h3>
+<blockquote>
+<p>说明：下面只展示 script 与 template，<code>&lt;style scoped&gt;</code> 请打开源文件查看。</p>
+</blockquote>
+<h4 id="appshellvue">AppShell.vue</h4>
+<p><strong>作用</strong>：每个页面最外层的统一外壳。</p>
+<ul>
+<li><code>NavBar</code> + 内容插槽 + <code>AppFooter</code> + <code>BackToTop</code>。</li>
+<li><code>showBackTop</code> 由页面传入，控制返回顶部按钮。</li>
+<li><code>themeClass</code> 是 <code>computed</code>，根据 <code>theme</code> 给根节点加 <code>theme-dark</code> / <code>theme-light</code>。</li>
+<li><code>onMounted</code> 调用 <code>applyThemeToNative()</code>，每次进入新页面都同步原生导航栏。</li>
+</ul>
+<p>⚠️ 这是「小程序没有全局布局容器」的解决方案：把布局做成组件，在每个页面手动包一层。</p>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 页面统一外壳：导航栏 + 内容区 + 页脚 + 返回顶部
+// 小程序没有 App.vue 包裹页面的能力，因此用组件复用全局布局
+import { computed, onMounted } from 'vue'
+import { useTheme, applyThemeToNative } from '../composables/useTheme'
+import NavBar from './NavBar.vue'
+import AppFooter from './AppFooter.vue'
+import BackToTop from './BackToTop.vue'
+
+defineProps({
+  showBackTop: { type: Boolean, default: false },
+})
+
+const { theme } = useTheme()
+const themeClass = computed(() =&gt; (theme.value === 'dark' ? 'theme-dark' : 'theme-light'))
+
+// 每次进入新页面时，把主题同步到原生导航栏
+onMounted(() =&gt; applyThemeToNative())
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;app&quot; :class=&quot;themeClass&quot;&gt;
+    &lt;NavBar /&gt;
+    &lt;view class=&quot;page&quot;&gt;
+      &lt;slot /&gt;
+    &lt;/view&gt;
+    &lt;AppFooter /&gt;
+    &lt;BackToTop :visible=&quot;showBackTop&quot; /&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="navbarvue">NavBar.vue</h4>
+<p><strong>作用</strong>：顶部品牌区 + 收藏入口 + 主题切换。</p>
+<ul>
+<li><code>inject('site')</code> 拿到站点名称。</li>
+<li><code>useFavorites()</code> 拿到收藏数组，<code>favoriteCount</code> 是 <code>computed</code>，实时显示数量徽标。</li>
+<li>点击品牌回首页，点击心形去目的地列表（目前收藏没有独立页面）。</li>
+<li>两个跳转都用 <code>uni.switchTab</code>。</li>
+</ul>
+<p>⚠️ 这里没有用 <code>&lt;RouterLink&gt;</code>，因为 uni-app 没有 Vue Router。</p>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：inject、computed、v-if、点击导航
+// uni-app 使用 pages.json 的 tabBar 完成底部导航，这里保留品牌区、收藏入口与主题切换
+import { computed, inject } from 'vue'
+import ThemeToggle from './ThemeToggle.vue'
+import { useFavorites } from '../composables/useFavorites'
+
+const site = inject('site')
+const { favorites } = useFavorites()
+
+const favoriteCount = computed(() =&gt; favorites.value.length)
+
+function goHome() {
+  uni.switchTab({ url: '/pages/index/index' })
+}
+
+function goDestinations() {
+  uni.switchTab({ url: '/pages/destinations/index' })
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;navbar&quot;&gt;
+    &lt;view class=&quot;navbar__inner&quot;&gt;
+      &lt;view class=&quot;navbar__brand&quot; @click=&quot;goHome&quot;&gt;
+        &lt;text class=&quot;navbar__logo&quot;&gt;⛰&lt;/text&gt;
+        &lt;text class=&quot;navbar__name&quot;&gt;{{ site?.name }}&lt;/text&gt;
+      &lt;/view&gt;
+
+      &lt;view class=&quot;navbar__actions&quot;&gt;
+        &lt;view class=&quot;navbar__fav&quot; @click=&quot;goDestinations&quot;&gt;
+          &lt;text class=&quot;navbar__fav-icon&quot;&gt;♥&lt;/text&gt;
+          &lt;text v-if=&quot;favoriteCount&quot; class=&quot;navbar__badge&quot;&gt;{{ favoriteCount }}&lt;/text&gt;
+        &lt;/view&gt;
+        &lt;ThemeToggle /&gt;
+      &lt;/view&gt;
+    &lt;/view&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="appfootervue">AppFooter.vue</h4>
+<p><strong>作用</strong>：页脚品牌、slogan、4 个 tab 链接、版权年份。</p>
+<ul>
+<li><code>inject('site')</code> 取站点信息。</li>
+<li><code>year</code> 是 <code>computed</code>，自动取当前年份。</li>
+<li><code>links</code> 数组 + <code>v-for</code> 渲染，点击调用 <code>uni.switchTab</code>。</li>
+<li>页脚 <code>margin-top: auto</code> 配合 <code>.app</code> 的 flex 布局，让短页面也能把页脚推到底部。</li>
+</ul>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：inject、computed、v-for、switchTab 导航
+import { inject, computed } from 'vue'
+
+const site = inject('site')
+const year = computed(() =&gt; new Date().getFullYear())
+
+const links = [
+  { url: '/pages/index/index', label: '首页' },
+  { url: '/pages/destinations/index', label: '目的地' },
+  { url: '/pages/planner/index', label: '行程规划' },
+  { url: '/pages/about/index', label: '关于' },
+]
+
+function go(url) {
+  uni.switchTab({ url })
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;footer&quot;&gt;
+    &lt;view class=&quot;container footer__inner&quot;&gt;
+      &lt;view class=&quot;footer__brand&quot;&gt;
+        &lt;text class=&quot;footer__logo&quot;&gt;⛰&lt;/text&gt;
+        &lt;view&gt;
+          &lt;text class=&quot;footer__name&quot;&gt;{{ site?.name }}&lt;/text&gt;
+          &lt;text class=&quot;footer__slogan&quot;&gt;{{ site?.slogan }}&lt;/text&gt;
+        &lt;/view&gt;
+      &lt;/view&gt;
+      &lt;view class=&quot;footer__links&quot;&gt;
+        &lt;text v-for=&quot;l in links&quot; :key=&quot;l.url&quot; class=&quot;footer__link&quot; @click=&quot;go(l.url)&quot;&gt;{{ l.label }}&lt;/text&gt;
+      &lt;/view&gt;
+    &lt;/view&gt;
+    &lt;view class=&quot;container footer__bottom&quot;&gt;
+      © {{ year }} {{ site?.name }} · 用 Vue 3 + uni-app 构建 · 仅供学习交流
+    &lt;/view&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="backtotopvue">BackToTop.vue</h4>
+<p><strong>作用</strong>：右下角固定定位的「返回顶部」按钮。</p>
+<ul>
+<li><code>visible</code> 由父页面传入（页面用 <code>usePageScroll</code> 算出来）。</li>
+<li>点击调用 <code>uni.pageScrollTo({ scrollTop: 0 })</code>。</li>
+<li><code>position: fixed</code> 在小程序和 H5 都支持。</li>
+</ul>
+<p>⚠️ 它不知道自己滚了多远，只负责「显示/隐藏」和「滚回去」，滚动状态在页面层计算。</p>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：props、uni.pageScrollTo
+// 小程序无法监听 window.scroll，滚动状态由页面通过 usePageScroll 计算后传入
+defineProps({
+  visible: { type: Boolean, default: false },
+})
+
+function toTop() {
+  uni.pageScrollTo({ scrollTop: 0, duration: 300 })
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view v-if=&quot;visible&quot; class=&quot;backtop&quot; @click=&quot;toTop&quot;&gt;
+    &lt;text class=&quot;backtop__icon&quot;&gt;↑&lt;/text&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h3 id="62">6.2 通用展示</h3>
+<blockquote>
+<p>说明：下面只展示 script 与 template，<code>&lt;style scoped&gt;</code> 请打开源文件查看。</p>
+</blockquote>
+<h4 id="sectiontitlevue">SectionTitle.vue</h4>
+<p><strong>作用</strong>：区块标题，统一「小标签 + 主标题 + 副标题」的排版。</p>
+<ul>
+<li>三个 props：<code>eyebrow</code>、<code>title</code>、<code>subtitle</code>。</li>
+<li>每个都用 <code>v-if</code> 判断，没传就不渲染。</li>
+</ul>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：props
+defineProps({
+  eyebrow: String,
+  title: String,
+  subtitle: String,
+})
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;section-head&quot;&gt;
+    &lt;text v-if=&quot;eyebrow&quot; class=&quot;eyebrow&quot;&gt;{{ eyebrow }}&lt;/text&gt;
+    &lt;text v-if=&quot;title&quot; class=&quot;section-head__title&quot;&gt;{{ title }}&lt;/text&gt;
+    &lt;text v-if=&quot;subtitle&quot; class=&quot;section-head__sub&quot;&gt;{{ subtitle }}&lt;/text&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="featurecardvue">FeatureCard.vue</h4>
+<p><strong>作用</strong>：功能卖点卡片。</p>
+<ul>
+<li>props：<code>icon</code>、<code>title</code>、<code>desc</code>。</li>
+<li>默认插槽 <code>&lt;slot /&gt;</code> 可以追加自定义内容。</li>
+<li>首页和关于页都用它渲染 3 张功能卡。</li>
+</ul>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：props、插槽
+defineProps({
+  icon: String,
+  title: String,
+  desc: String,
+})
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;card feature&quot;&gt;
+    &lt;view class=&quot;feature__icon&quot;&gt;
+      &lt;text&gt;{{ icon }}&lt;/text&gt;
+    &lt;/view&gt;
+    &lt;text class=&quot;feature__title&quot;&gt;{{ title }}&lt;/text&gt;
+    &lt;text class=&quot;feature__desc&quot;&gt;{{ desc }}&lt;/text&gt;
+    &lt;slot /&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="tagbadgevue">TagBadge.vue</h4>
+<p><strong>作用</strong>：单个标签胶囊，最简单的展示组件。</p>
+<ul>
+<li>只有一个 <code>text</code> prop。</li>
+<li>接收字符串，渲染成 <code>&lt;text class="tag"&gt;</code>。</li>
+</ul>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：props
+defineProps({ text: String })
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;text class=&quot;tag&quot;&gt;{{ text }}&lt;/text&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="emptystatevue">EmptyState.vue</h4>
+<p><strong>作用</strong>：空状态占位。</p>
+<ul>
+<li>props：<code>icon</code>（默认 🗺️）、<code>title</code>、<code>desc</code>。</li>
+<li>默认插槽放操作按钮，例如「清空筛选」「返回列表」。</li>
+<li>列表无结果、详情 id 不存在、行程清单为空时都用它。</li>
+</ul>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：props、插槽（默认插槽放置操作按钮）
+defineProps({
+  icon: { type: String, default: '🗺️' },
+  title: String,
+  desc: String,
+})
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;empty&quot;&gt;
+    &lt;text class=&quot;empty__icon&quot;&gt;{{ icon }}&lt;/text&gt;
+    &lt;text class=&quot;empty__title&quot;&gt;{{ title }}&lt;/text&gt;
+    &lt;text v-if=&quot;desc&quot; class=&quot;empty__desc&quot;&gt;{{ desc }}&lt;/text&gt;
+    &lt;view class=&quot;empty__action&quot;&gt;
+      &lt;slot /&gt;
+    &lt;/view&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="basebuttonvue">BaseButton.vue</h4>
+<p><strong>作用</strong>：统一按钮。</p>
+<ul>
+<li>props：<code>variant</code>（primary / ghost / soft / light）、<code>block</code>（是否占满整行）。</li>
+<li>两个插槽：具名 <code>icon</code> 和默认插槽。</li>
+<li>点击时 <code>$emit('click', $event)</code>，把事件交给父组件。</li>
+<li>用 <code>&lt;button&gt;</code> 而不是 <code>&lt;view&gt;</code>，保留小程序的点击语义和无障碍特性。</li>
+</ul>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：props、插槽（默认插槽 + 具名插槽 icon）、class 动态绑定
+defineProps({
+  variant: { type: String, default: 'primary' },
+  block: { type: Boolean, default: false },
+})
+defineEmits(['click'])
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;button class=&quot;btn&quot; :class=&quot;[`btn--${variant}`, { 'btn--block': block }]&quot; @click=&quot;$emit('click', $event)&quot;&gt;
+    &lt;slot name=&quot;icon&quot; /&gt;
+    &lt;slot /&gt;
+  &lt;/button&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="ratingstarsvue">RatingStars.vue</h4>
+<p><strong>作用</strong>：星级评分。</p>
+<ul>
+<li>props：<code>modelValue</code>、<code>max</code>（默认 5）、<code>readonly</code>。</li>
+<li><code>stars</code> 是 <code>computed</code>，生成 1..max 的数组。</li>
+<li>可编辑时点击星星，<code>emit('update:modelValue', s)</code>，父组件可用 <code>v-model</code>。</li>
+<li>本项目所有地方都传了 <code>readonly</code>，只做展示。</li>
+<li>右侧还会显示数值（<code>Number(modelValue).toFixed(1)</code>）。</li>
+</ul>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：props、computed、事件（update:modelValue 实现 v-model）、v-for、class 绑定
+import { computed } from 'vue'
+
+const props = defineProps({
+  modelValue: { type: Number, default: 0 },
+  max: { type: Number, default: 5 },
+  readonly: { type: Boolean, default: false },
+})
+const emit = defineEmits(['update:modelValue'])
+
+const stars = computed(() =&gt; Array.from({ length: props.max }, (_, i) =&gt; i + 1))
+
+function choose(s) {
+  if (!props.readonly) emit('update:modelValue', s)
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;stars&quot;&gt;
+    &lt;text
+      v-for=&quot;s in stars&quot;
+      :key=&quot;s&quot;
+      class=&quot;star&quot;
+      :class=&quot;{ 'star--on': s &lt;= Math.round(modelValue) }&quot;
+      @click=&quot;choose(s)&quot;
+    &gt;★&lt;/text&gt;
+    &lt;text class=&quot;stars__value&quot;&gt;{{ Number(modelValue).toFixed(1) }}&lt;/text&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="progressbarvue">ProgressBar.vue</h4>
+<p><strong>作用</strong>：进度条。</p>
+<ul>
+<li>只有一个 <code>value</code> prop。</li>
+<li><code>percent</code> 是 <code>computed</code>，用 <code>Math.min/max</code> 把值限制在 0–100。</li>
+<li>填充宽度用内联 <code>:style="{ width: percent + '%' }"</code>，因为宽度是动态的。</li>
+<li>用 <code>transition: width</code> 做平滑动画。</li>
+</ul>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：props、computed、内联样式绑定（:style）
+import { computed } from 'vue'
+
+const props = defineProps({
+  value: { type: Number, default: 0 },
+})
+
+const percent = computed(() =&gt; Math.min(100, Math.max(0, props.value)))
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;progress&quot;&gt;
+    &lt;view class=&quot;progress__track&quot;&gt;
+      &lt;view class=&quot;progress__fill&quot; :style=&quot;{ width: percent + '%' }&quot;&gt;&lt;/view&gt;
+    &lt;/view&gt;
+    &lt;text class=&quot;progress__text&quot;&gt;{{ percent }}%&lt;/text&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h3 id="63">6.3 目的地相关</h3>
+<blockquote>
+<p>说明：下面只展示 script 与 template，<code>&lt;style scoped&gt;</code> 请打开源文件查看。</p>
+</blockquote>
+<h4 id="searchbarvue">SearchBar.vue</h4>
+<p><strong>作用</strong>：搜索输入框。</p>
+<ul>
+<li><code>defineModel</code> 实现组件级 <code>v-model</code>，父页面写 <code>v-model="keyword"</code>。</li>
+<li>有内容时显示清除按钮，点击把 model 设为空。</li>
+<li><code>focused</code> 控制聚焦。小程序没有 DOM 的 <code>input.focus()</code>，只能用 <code>&lt;input :focus="focused"&gt;</code>。</li>
+<li><code>defineExpose({ focus })</code> 把聚焦方法暴露给父组件（本项目暂未调用，作为知识点保留）。</li>
+</ul>
+<p>⚠️ <code>:focus</code> 是「一次性」的：设为 true 后用户失焦，需要先设回 false 再设 true 才能再次聚焦。</p>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：defineModel（组件级 v-model）、defineExpose、v-if
+// 小程序不能直接调用 DOM 的 focus()，改用 input 的 :focus 属性
+import { ref } from 'vue'
+
+const model = defineModel({ type: String, default: '' })
+const focused = ref(false)
+
+function focus() {
+  focused.value = false
+  setTimeout(() =&gt; {
+    focused.value = true
+  }, 50)
+}
+
+defineExpose({ focus })
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;searchbar&quot;&gt;
+    &lt;text class=&quot;searchbar__icon&quot;&gt;🔍&lt;/text&gt;
+    &lt;input
+      v-model=&quot;model&quot;
+      type=&quot;text&quot;
+      class=&quot;searchbar__input&quot;
+      confirm-type=&quot;search&quot;
+      placeholder=&quot;搜索目的地、国家或标签…&quot;
+      placeholder-class=&quot;searchbar__placeholder&quot;
+      :focus=&quot;focused&quot;
+      @blur=&quot;focused = false&quot;
+    /&gt;
+    &lt;view v-if=&quot;model&quot; class=&quot;searchbar__clear&quot; @click=&quot;model = ''&quot;&gt;
+      &lt;text&gt;✕&lt;/text&gt;
+    &lt;/view&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="filterbarvue">FilterBar.vue</h4>
+<p><strong>作用</strong>：大洲筛选胶囊 + 排序下拉。</p>
+<ul>
+<li>props：<code>regions</code>（大洲数组）。</li>
+<li>两个命名 <code>defineModel</code>：<code>region</code> 和 <code>sort</code>，对应父组件的 <code>v-model:region</code> / <code>v-model:sort</code>。</li>
+<li>小程序没有 <code>&lt;select&gt;</code>，改用 <code>&lt;picker mode="selector"&gt;</code>。</li>
+<li><code>sortIndex</code> 是 <code>computed</code>，把当前排序值换算成 picker 的下标。</li>
+<li><code>onSortChange(e)</code> 从 <code>e.detail.value</code> 取选中下标，再写回 <code>sort</code>。</li>
+</ul>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：props、defineModel（命名 v-model）、v-for、class 绑定
+// 小程序没有 &lt;select&gt;，改用 uni-app 的 &lt;picker mode=&quot;selector&quot;&gt;
+import { computed } from 'vue'
+
+defineProps({
+  regions: { type: Array, default: () =&gt; [] },
+})
+
+const region = defineModel('region', { default: '全部' })
+const sort = defineModel('sort', { default: 'default' })
+
+const sortOptions = [
+  { value: 'default', label: '默认排序' },
+  { value: 'rating', label: '按评分' },
+  { value: 'name', label: '按名称' },
+]
+const sortLabels = sortOptions.map((o) =&gt; o.label)
+
+const sortIndex = computed(() =&gt; Math.max(0, sortOptions.findIndex((o) =&gt; o.value === sort.value)))
+
+function onSortChange(e) {
+  sort.value = sortOptions[Number(e.detail.value)].value
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;filterbar&quot;&gt;
+    &lt;view class=&quot;filterbar__chips&quot;&gt;
+      &lt;view
+        v-for=&quot;r in ['全部', ...regions]&quot;
+        :key=&quot;r&quot;
+        class=&quot;chip&quot;
+        :class=&quot;{ 'chip--active': region === r }&quot;
+        @click=&quot;region = r&quot;
+      &gt;
+        &lt;text&gt;{{ r }}&lt;/text&gt;
+      &lt;/view&gt;
+    &lt;/view&gt;
+
+    &lt;picker mode=&quot;selector&quot; :range=&quot;sortLabels&quot; :value=&quot;sortIndex&quot; @change=&quot;onSortChange&quot;&gt;
+      &lt;view class=&quot;filterbar__select&quot;&gt;
+        &lt;text&gt;{{ sortLabels[sortIndex] }} ▾&lt;/text&gt;
+      &lt;/view&gt;
+    &lt;/picker&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="destinationlistvue">DestinationList.vue</h4>
+<p><strong>作用</strong>：目的地两列网格。</p>
+<ul>
+<li>props：<code>destinations</code>、<code>isFavorite</code>（函数）。</li>
+<li>收到 <code>toggle-favorite</code> 后继续向上抛，并附带 id。</li>
+<li>用 Flexbox 的 <code>width: 50%</code> 实现两列，窄屏媒体查询改成 100%。</li>
+<li>这就是「容器组件」：只负责布局和事件透传，不关心单张卡片长什么样。</li>
+</ul>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：props、v-for（带 key）、事件透传
+import DestinationCard from './DestinationCard.vue'
+
+defineProps({
+  destinations: { type: Array, default: () =&gt; [] },
+  isFavorite: { type: Function, default: () =&gt; false },
+})
+defineEmits(['toggle-favorite'])
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;dest-list&quot;&gt;
+    &lt;view v-for=&quot;d in destinations&quot; :key=&quot;d.id&quot; class=&quot;dest-list__item&quot;&gt;
+      &lt;DestinationCard
+        :destination=&quot;d&quot;
+        :favorite=&quot;isFavorite(d.id)&quot;
+        @toggle-favorite=&quot;$emit('toggle-favorite', d.id)&quot;
+      /&gt;
+    &lt;/view&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="destinationcardvue">DestinationCard.vue</h4>
+<p><strong>作用</strong>：单张目的地卡片。</p>
+<ul>
+<li>props：<code>destination</code>、<code>favorite</code>。</li>
+<li>点击图片区域调用 <code>uni.navigateTo</code> 跳详情，url 里带 <code>?id=xxx</code>。</li>
+<li><code>FavoriteButton</code> 上用了 <code>@click.stop</code>（在按钮组件内部），防止点收藏时也触发跳转。</li>
+<li><code>&lt;image mode="aspectFill"&gt;</code>：保持比例裁剪填满，必须显式给宽高。</li>
+<li>卡片里组合了 <code>TagBadge</code>、<code>RatingStars</code>、<code>FavoriteButton</code> 三个子组件。</li>
+</ul>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：props、事件、子组件组合、v-for、页面跳转（navigateTo）
+import TagBadge from './TagBadge.vue'
+import RatingStars from './RatingStars.vue'
+import FavoriteButton from './FavoriteButton.vue'
+
+const props = defineProps({
+  destination: { type: Object, required: true },
+  favorite: { type: Boolean, default: false },
+})
+defineEmits(['toggle-favorite'])
+
+function goDetail() {
+  uni.navigateTo({ url: `/pages/destination/detail?id=${props.destination.id}` })
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;card dest-card&quot;&gt;
+    &lt;view class=&quot;dest-card__media&quot; @click=&quot;goDetail&quot;&gt;
+      &lt;image class=&quot;dest-card__img&quot; :src=&quot;destination.image&quot; mode=&quot;aspectFill&quot; /&gt;
+      &lt;view class=&quot;dest-card__fav&quot;&gt;
+        &lt;FavoriteButton :active=&quot;favorite&quot; @toggle=&quot;$emit('toggle-favorite')&quot; /&gt;
+      &lt;/view&gt;
+    &lt;/view&gt;
+    &lt;view class=&quot;dest-card__body&quot;&gt;
+      &lt;view class=&quot;dest-card__top&quot;&gt;
+        &lt;text class=&quot;dest-card__name&quot;&gt;{{ destination.name }}&lt;/text&gt;
+        &lt;RatingStars :model-value=&quot;destination.rating&quot; readonly /&gt;
+      &lt;/view&gt;
+      &lt;text class=&quot;dest-card__country&quot;&gt;{{ destination.country }} · {{ destination.region }}&lt;/text&gt;
+      &lt;text class=&quot;dest-card__summary&quot;&gt;{{ destination.summary }}&lt;/text&gt;
+      &lt;view class=&quot;dest-card__tags&quot;&gt;
+        &lt;TagBadge v-for=&quot;t in destination.tags&quot; :key=&quot;t&quot; :text=&quot;t&quot; /&gt;
+      &lt;/view&gt;
+    &lt;/view&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="herobannervue">HeroBanner.vue</h4>
+<p><strong>作用</strong>：首页头图。</p>
+<ul>
+<li>用 <code>&lt;image&gt;</code> 承载背景，而不是 CSS <code>background-image</code>。
+  原因：小程序不支持 CSS 网络背景图。</li>
+<li>半透明遮罩 <code>.hero__overlay</code> 用 <code>linear-gradient</code> 让文字可读。</li>
+<li>两个按钮用 <code>switchTab</code> 去目的地/行程页。</li>
+<li><code>footer</code> 具名插槽：首页用它显示「已收录 10 个目的地」。</li>
+<li>标题里的 <code>{{ '\n' }}</code> 配合 <code>white-space: pre-line</code> 实现强制换行。</li>
+</ul>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：插槽（具名插槽 footer）、页面跳转、image 组件
+// 小程序不支持 CSS 网络背景图，因此改用 &lt;image&gt; 承载背景
+const heroImage = 'https://picsum.photos/seed/wanderlog-hero/1600/900'
+
+function go(url) {
+  uni.switchTab({ url })
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;hero&quot;&gt;
+    &lt;image class=&quot;hero__bg&quot; :src=&quot;heroImage&quot; mode=&quot;aspectFill&quot; /&gt;
+    &lt;view class=&quot;hero__overlay&quot;&gt;&lt;/view&gt;
+    &lt;view class=&quot;container hero__content&quot;&gt;
+      &lt;text class=&quot;hero__eyebrow&quot;&gt;WANDERLOG · 环球旅行手账&lt;/text&gt;
+      &lt;text class=&quot;hero__title&quot;&gt;把世界，{{ '\n' }}装进手账。&lt;/text&gt;
+      &lt;text class=&quot;hero__desc&quot;&gt;
+        收录心动目的地、规划专属行程、记录每一次出发。用 Vue 3 打造的旅行灵感集，陪你走过山海。
+      &lt;/text&gt;
+      &lt;view class=&quot;hero__actions&quot;&gt;
+        &lt;view class=&quot;btn btn--primary&quot; @click=&quot;go('/pages/destinations/index')&quot;&gt;
+          &lt;text&gt;探索目的地&lt;/text&gt;
+        &lt;/view&gt;
+        &lt;view class=&quot;btn btn--ghost btn--light&quot; @click=&quot;go('/pages/planner/index')&quot;&gt;
+          &lt;text&gt;规划行程&lt;/text&gt;
+        &lt;/view&gt;
+      &lt;/view&gt;
+      &lt;!-- 具名插槽 footer：由父页面提供补充说明 --&gt;
+      &lt;slot name=&quot;footer&quot; /&gt;
+    &lt;/view&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="statsbarvue">StatsBar.vue</h4>
+<p><strong>作用</strong>：首页统计条。</p>
+<ul>
+<li>直接 import 数据源，<code>stats</code> 是 <code>computed</code>：</li>
+<li>目的地数量 = 数组长度；</li>
+<li>国家数 / 大洲数 = <code>Set</code> 去重后的 size；</li>
+<li>平均评分 = 总分 / 数量，保留 1 位小数。</li>
+<li>四列布局，窄屏变两列。</li>
+</ul>
+<p>🧠 这些数字没有写死，数据一变就自动更新。</p>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：computed（从数据源派生出统计指标）、v-for
+import { computed } from 'vue'
+import { destinations } from '../data/destinations'
+
+const stats = computed(() =&gt; {
+  const countries = new Set(destinations.map((d) =&gt; d.country))
+  const regions = new Set(destinations.map((d) =&gt; d.region))
+  const avgRating = (destinations.reduce((s, d) =&gt; s + d.rating, 0) / destinations.length).toFixed(1)
+  return [
+    { label: '收录目的地', value: destinations.length },
+    { label: '覆盖国家', value: countries.size },
+    { label: '涉及大洲', value: regions.size },
+    { label: '平均评分', value: avgRating },
+  ]
+})
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;stats&quot;&gt;
+    &lt;view class=&quot;container stats__grid&quot;&gt;
+      &lt;view v-for=&quot;s in stats&quot; :key=&quot;s.label&quot; class=&quot;stats__item&quot;&gt;
+        &lt;text class=&quot;stats__value&quot;&gt;{{ s.value }}&lt;/text&gt;
+        &lt;text class=&quot;stats__label&quot;&gt;{{ s.label }}&lt;/text&gt;
+      &lt;/view&gt;
+    &lt;/view&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="photogalleryvue">PhotoGallery.vue</h4>
+<p><strong>作用</strong>：详情页图集。</p>
+<ul>
+<li>prop：<code>images</code> 数组。</li>
+<li><code>active</code> 保存当前大图下标。</li>
+<li><code>prev()</code> / <code>next()</code> 用取模实现循环切换：
+  <code>(active - 1 + len) % len</code>、<code>(active + 1) % len</code>。</li>
+<li>只有一张图时用 <code>v-show</code> 隐藏左右箭头。</li>
+<li>底部缩略图 <code>v-for</code> 渲染，点击直接切换。</li>
+</ul>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：props、ref、v-for、v-show、class 绑定
+import { ref } from 'vue'
+
+const props = defineProps({
+  images: { type: Array, default: () =&gt; [] },
+})
+
+const active = ref(0)
+const prev = () =&gt; {
+  active.value = (active.value - 1 + props.images.length) % props.images.length
+}
+const next = () =&gt; {
+  active.value = (active.value + 1) % props.images.length
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;gallery&quot;&gt;
+    &lt;view class=&quot;gallery__main&quot;&gt;
+      &lt;image class=&quot;gallery__img&quot; :src=&quot;images[active]&quot; mode=&quot;aspectFill&quot; /&gt;
+      &lt;view v-show=&quot;images.length &gt; 1&quot; class=&quot;gallery__nav gallery__nav--prev&quot; @click=&quot;prev&quot;&gt;
+        &lt;text&gt;‹&lt;/text&gt;
+      &lt;/view&gt;
+      &lt;view v-show=&quot;images.length &gt; 1&quot; class=&quot;gallery__nav gallery__nav--next&quot; @click=&quot;next&quot;&gt;
+        &lt;text&gt;›&lt;/text&gt;
+      &lt;/view&gt;
+    &lt;/view&gt;
+    &lt;view class=&quot;gallery__thumbs&quot;&gt;
+      &lt;view
+        v-for=&quot;(img, i) in images&quot;
+        :key=&quot;i&quot;
+        class=&quot;gallery__thumb&quot;
+        :class=&quot;{ 'gallery__thumb--active': i === active }&quot;
+        @click=&quot;active = i&quot;
+      &gt;
+        &lt;image class=&quot;gallery__thumb-img&quot; :src=&quot;img&quot; mode=&quot;aspectFill&quot; /&gt;
+      &lt;/view&gt;
+    &lt;/view&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="factlistvue">FactList.vue</h4>
+<p><strong>作用</strong>：把 <code>facts</code> 对象渲染成信息行。</p>
+<ul>
+<li>prop：<code>facts</code>（对象）。</li>
+<li><code>v-for="(value, key) in facts"</code> 同时拿到键和值。</li>
+<li>左侧固定宽度显示键，右侧显示值，中间用虚线分隔。</li>
+</ul>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：props、v-for 遍历对象
+defineProps({
+  facts: { type: Object, default: () =&gt; ({}) },
+})
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;facts&quot;&gt;
+    &lt;view v-for=&quot;(value, key) in facts&quot; :key=&quot;key&quot; class=&quot;facts__row&quot;&gt;
+      &lt;text class=&quot;facts__key&quot;&gt;{{ key }}&lt;/text&gt;
+      &lt;text class=&quot;facts__value&quot;&gt;{{ value }}&lt;/text&gt;
+    &lt;/view&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="favoritebuttonvue">FavoriteButton.vue</h4>
+<p><strong>作用</strong>：心形收藏按钮。</p>
+<ul>
+<li>prop：<code>active</code> 控制实心/空心。</li>
+<li>点击 <code>$emit('toggle')</code>，具体收藏逻辑由页面处理。</li>
+<li><code>@click.stop</code> 阻止事件冒泡，避免点收藏时触发卡片跳转。</li>
+<li><code>:aria-label</code> 提升无障碍体验。</li>
+</ul>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：props、事件（emit）、class 动态绑定
+defineProps({
+  active: { type: Boolean, default: false },
+})
+defineEmits(['toggle'])
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view
+    class=&quot;fav&quot;
+    :class=&quot;{ 'fav--active': active }&quot;
+    :aria-label=&quot;active ? '取消收藏' : '收藏'&quot;
+    @click.stop=&quot;$emit('toggle')&quot;
+  &gt;
+    &lt;text class=&quot;fav__icon&quot;&gt;{{ active ? '♥' : '♡' }}&lt;/text&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h3 id="64">6.4 表单与清单</h3>
+<blockquote>
+<p>说明：下面只展示 script 与 template，<code>&lt;style scoped&gt;</code> 请打开源文件查看。</p>
+</blockquote>
+<h4 id="forminputvue">FormInput.vue</h4>
+<p><strong>作用</strong>：通用输入项。</p>
+<ul>
+<li>props：<code>label</code>、<code>type</code>、<code>textarea</code>、<code>error</code>。</li>
+<li><code>defineModel</code> 实现 <code>v-model</code>。</li>
+<li><code>inputType</code> 是 <code>computed</code>：小程序 input 的 type 不支持 <code>email</code>，统一回退成 <code>text</code>。</li>
+<li><code>textarea</code> 用 <code>:maxlength="-1"</code> 取消长度限制。</li>
+<li>有 <code>error</code> 时在下方显示红色提示。</li>
+</ul>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：props、defineModel、v-if/v-else、v-model
+// 小程序 input 的 type 仅支持 text/number/digit/idcard/nickname，email 统一回退为 text
+import { computed } from 'vue'
+
+const props = defineProps({
+  label: String,
+  type: { type: String, default: 'text' },
+  textarea: { type: Boolean, default: false },
+  error: String,
+})
+
+const model = defineModel({ default: '' })
+const inputType = computed(() =&gt; (props.type === 'email' ? 'text' : props.type))
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;field&quot;&gt;
+    &lt;text class=&quot;field__label&quot;&gt;{{ label }}&lt;/text&gt;
+    &lt;textarea
+      v-if=&quot;textarea&quot;
+      v-model=&quot;model&quot;
+      class=&quot;field__textarea&quot;
+      :maxlength=&quot;-1&quot;
+      placeholder=&quot;请输入…&quot;
+      placeholder-class=&quot;field__placeholder&quot;
+    &gt;&lt;/textarea&gt;
+    &lt;input
+      v-else
+      v-model=&quot;model&quot;
+      class=&quot;field__input&quot;
+      :type=&quot;inputType&quot;
+      placeholder=&quot;请输入…&quot;
+      placeholder-class=&quot;field__placeholder&quot;
+    /&gt;
+    &lt;text v-if=&quot;error&quot; class=&quot;field__error&quot;&gt;{{ error }}&lt;/text&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="contactformvue">ContactForm.vue</h4>
+<p><strong>作用</strong>：留言表单。</p>
+<ul>
+<li><code>form</code> 和 <code>errors</code> 都是 <code>reactive</code>，分别存输入值和错误提示。</li>
+<li><code>emailValid</code> 是 <code>computed</code>，用正则判断邮箱格式。</li>
+<li><code>validate()</code> 逐项校验，返回是否全部通过。</li>
+<li><code>submitted</code> 控制「表单 / 成功页」切换。</li>
+<li>成功页会回显用户输入，<code>reset()</code> 可以再写一条。</li>
+<li>表单本身不会发请求，纯前端演示。</li>
+</ul>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：reactive、ref、computed、表单校验、组件 v-model、v-if/v-else
+import { reactive, ref, computed } from 'vue'
+import FormInput from './FormInput.vue'
+
+const form = reactive({ name: '', email: '', message: '' })
+const errors = reactive({ name: '', email: '', message: '' })
+const submitted = ref(false)
+
+const emailValid = computed(() =&gt; /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email))
+
+function validate() {
+  errors.name = form.name.trim() ? '' : '请输入你的称呼'
+  errors.email = form.email.trim() ? (emailValid.value ? '' : '邮箱格式不正确') : '请输入邮箱'
+  errors.message = form.message.trim() ? '' : '请填写留言内容'
+  return !errors.name &amp;&amp; !errors.email &amp;&amp; !errors.message
+}
+
+function submit() {
+  if (validate()) submitted.value = true
+}
+
+function reset() {
+  form.name = ''
+  form.email = ''
+  form.message = ''
+  errors.name = ''
+  errors.email = ''
+  errors.message = ''
+  submitted.value = false
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;contact&quot;&gt;
+    &lt;view v-if=&quot;!submitted&quot; class=&quot;contact__form&quot;&gt;
+      &lt;FormInput v-model=&quot;form.name&quot; label=&quot;称呼&quot; :error=&quot;errors.name&quot; /&gt;
+      &lt;FormInput v-model=&quot;form.email&quot; label=&quot;邮箱&quot; type=&quot;email&quot; :error=&quot;errors.email&quot; /&gt;
+      &lt;FormInput v-model=&quot;form.message&quot; label=&quot;留言&quot; textarea :error=&quot;errors.message&quot; /&gt;
+      &lt;view class=&quot;btn btn--primary btn--block&quot; @click=&quot;submit&quot;&gt;
+        &lt;text&gt;提交留言&lt;/text&gt;
+      &lt;/view&gt;
+    &lt;/view&gt;
+
+    &lt;view v-else class=&quot;contact__success&quot;&gt;
+      &lt;text class=&quot;contact__success-icon&quot;&gt;✅&lt;/text&gt;
+      &lt;text class=&quot;contact__success-title&quot;&gt;谢谢你的留言，{{ form.name }}！&lt;/text&gt;
+      &lt;text class=&quot;contact__success-desc&quot;&gt;这是一份前端演示，留言不会被真正发送。以下是你的内容：&lt;/text&gt;
+      &lt;view class=&quot;contact__quote&quot;&gt;
+        &lt;text&gt;{{ form.message }}&lt;/text&gt;
+      &lt;/view&gt;
+      &lt;view class=&quot;btn btn--soft&quot; @click=&quot;reset&quot;&gt;
+        &lt;text&gt;再写一条&lt;/text&gt;
+      &lt;/view&gt;
+    &lt;/view&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="plannerformvue">PlannerForm.vue</h4>
+<p><strong>作用</strong>：添加行程的输入区。</p>
+<ul>
+<li><code>text</code>、<code>priority</code>、<code>focused</code> 三个 <code>ref</code>。</li>
+<li>优先级用 <code>&lt;picker mode="selector"&gt;</code>，<code>priorityIndex</code> 是 <code>computed</code>。</li>
+<li><code>submit()</code> 校验非空后 <code>emit('add', { text, priority })</code>，然后清空输入。</li>
+<li>提交后用 <code>focused = false → true</code> 重新聚焦，方便连续添加。</li>
+<li>键盘「完成」也会触发 <code>@confirm="submit"</code>。</li>
+</ul>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：ref、v-model、事件（emit）、表单输入、picker 选择器
+import { ref, computed } from 'vue'
+
+const emit = defineEmits(['add'])
+
+const text = ref('')
+const priority = ref('中')
+const focused = ref(false)
+const priorities = ['高', '中', '低']
+
+const priorityIndex = computed(() =&gt; Math.max(0, priorities.indexOf(priority.value)))
+
+function onPriorityChange(e) {
+  priority.value = priorities[Number(e.detail.value)]
+}
+
+function submit() {
+  if (!text.value.trim()) return
+  emit('add', { text: text.value.trim(), priority: priority.value })
+  text.value = ''
+  // 小程序通过 :focus 控制聚焦，重新触发一次以获得输入焦点
+  focused.value = false
+  setTimeout(() =&gt; {
+    focused.value = true
+  }, 50)
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;planner-form&quot;&gt;
+    &lt;input
+      v-model=&quot;text&quot;
+      class=&quot;planner-form__input&quot;
+      placeholder=&quot;例如：预订富士山脚下民宿…&quot;
+      placeholder-class=&quot;planner-form__placeholder&quot;
+      confirm-type=&quot;done&quot;
+      :focus=&quot;focused&quot;
+      @blur=&quot;focused = false&quot;
+      @confirm=&quot;submit&quot;
+    /&gt;
+    &lt;picker mode=&quot;selector&quot; :range=&quot;priorities&quot; :value=&quot;priorityIndex&quot; @change=&quot;onPriorityChange&quot;&gt;
+      &lt;view class=&quot;planner-form__priority&quot;&gt;
+        &lt;text&gt;{{ priority }}优先级 ▾&lt;/text&gt;
+      &lt;/view&gt;
+    &lt;/picker&gt;
+    &lt;view class=&quot;btn btn--primary&quot; @click=&quot;submit&quot;&gt;
+      &lt;text&gt;添加&lt;/text&gt;
+    &lt;/view&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h4 id="planneritemvue">PlannerItem.vue</h4>
+<p><strong>作用</strong>：单条行程。</p>
+<ul>
+<li>props：<code>item</code>；emits：<code>toggle</code>、<code>remove</code>、<code>update</code>。</li>
+<li><code>editing</code> / <code>draft</code> 控制编辑状态和草稿。</li>
+<li>复选框用 <code>&lt;checkbox-group&gt;</code> + <code>&lt;checkbox&gt;</code>，<code>@change</code> 抛 <code>toggle</code>。</li>
+<li>优先级用 <code>priorityClass</code> 映射成不同颜色。</li>
+<li>编辑时显示 input，确认后抛 <code>update</code>；取消修改则保留原文。</li>
+<li>删除按钮抛 <code>remove</code>。</li>
+</ul>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：props、事件、ref、v-if/v-else、class 绑定、confirm 事件
+import { ref } from 'vue'
+
+const props = defineProps({
+  item: { type: Object, required: true },
+})
+const emit = defineEmits(['toggle', 'remove', 'update'])
+
+const editing = ref(false)
+const draft = ref('')
+
+const priorityClass = { 高: 'prio--high', 中: 'prio--mid', 低: 'prio--low' }
+
+function startEdit() {
+  draft.value = props.item.text
+  editing.value = true
+}
+
+function save() {
+  emit('update', draft.value.trim() || props.item.text)
+  editing.value = false
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;planner-item&quot; :class=&quot;{ 'planner-item--done': item.done }&quot;&gt;
+    &lt;checkbox-group class=&quot;planner-item__check&quot; :value=&quot;item.done ? ['done'] : []&quot; @change=&quot;emit('toggle')&quot;&gt;
+      &lt;checkbox value=&quot;done&quot; :checked=&quot;item.done&quot; color=&quot;#d96c4b&quot; /&gt;
+    &lt;/checkbox-group&gt;
+
+    &lt;text class=&quot;planner-item__prio&quot; :class=&quot;priorityClass[item.priority]&quot;&gt;{{ item.priority }}&lt;/text&gt;
+
+    &lt;template v-if=&quot;editing&quot;&gt;
+      &lt;input
+        v-model=&quot;draft&quot;
+        class=&quot;planner-item__edit&quot;
+        confirm-type=&quot;done&quot;
+        :focus=&quot;true&quot;
+        @confirm=&quot;save&quot;
+      /&gt;
+      &lt;view class=&quot;planner-item__btn&quot; @click=&quot;save&quot;&gt;&lt;text&gt;✓&lt;/text&gt;&lt;/view&gt;
+    &lt;/template&gt;
+    &lt;template v-else&gt;
+      &lt;text class=&quot;planner-item__text&quot;&gt;{{ item.text }}&lt;/text&gt;
+      &lt;view class=&quot;planner-item__btn&quot; @click=&quot;startEdit&quot;&gt;&lt;text&gt;✎&lt;/text&gt;&lt;/view&gt;
+    &lt;/template&gt;
+
+    &lt;view class=&quot;planner-item__btn planner-item__btn--danger&quot; @click=&quot;emit('remove')&quot;&gt;
+      &lt;text&gt;🗑&lt;/text&gt;
+    &lt;/view&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h3 id="65">6.5 主题</h3>
+<blockquote>
+<p>说明：下面只展示 script 与 template，<code>&lt;style scoped&gt;</code> 请打开源文件查看。</p>
+</blockquote>
+<h4 id="themetogglevue">ThemeToggle.vue</h4>
+<p><strong>作用</strong>：明暗主题切换按钮。</p>
+<ul>
+<li>调用 <code>useTheme()</code> 拿到 <code>theme</code> 和 <code>toggleTheme</code>。</li>
+<li>根据主题显示 🌙 或 ☀️。</li>
+<li>点击调用 <code>toggleTheme()</code>，模块级 <code>theme</code> 变化后：</li>
+<li><code>AppShell</code> 的 class 变化 → CSS 变量切换；</li>
+<li><code>useTheme</code> 的 <code>watch</code> → 写入存储；</li>
+<li>非 H5 端 → 同步原生导航栏。</li>
+<li><code>aria-label</code> 根据当前主题动态变化。</li>
+</ul>
+<pre><code class="language-vue">&lt;script setup&gt;
+// 知识点：组合式函数复用、v-if/v-else、事件处理
+import { useTheme } from '../composables/useTheme'
+
+const { theme, toggleTheme } = useTheme()
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;view class=&quot;theme-toggle&quot; :aria-label=&quot;theme === 'light' ? '切换到深色模式' : '切换到浅色模式'&quot; @click=&quot;toggleTheme&quot;&gt;
+    &lt;text v-if=&quot;theme === 'light'&quot;&gt;🌙&lt;/text&gt;
+    &lt;text v-else&gt;☀️&lt;/text&gt;
+  &lt;/view&gt;
+&lt;/template&gt;
+</code></pre>
+<h2 id="7">第 7 章　样式体系与多端兼容</h2>
+<h3 id="71">7.1 三层样式</h3>
+<table>
+<thead>
+<tr>
+<th>层级</th>
+<th>位置</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>全局基础</td>
+<td><code>App.vue</code> 的 <code>&lt;style&gt;</code></td>
+<td><code>page</code> 背景、字体、button 重置、公共类</td>
+</tr>
+<tr>
+<td>主题变量</td>
+<td><code>App.vue</code> 的 <code>.app</code> / <code>.app.theme-dark</code></td>
+<td>颜色、阴影、圆角等设计 token</td>
+</tr>
+<tr>
+<td>组件样式</td>
+<td>各组件的 <code>&lt;style scoped&gt;</code></td>
+<td>只影响当前组件，避免类名冲突</td>
+</tr>
+</tbody>
+</table>
+<h3 id="72">7.2 主题切换的核心代码</h3>
+<pre><code class="language-css">.app {
+  --bg: #f7f3ec;
+  --text: #2a241d;
+  --accent: #d96c4b;
+}
+.app.theme-dark {
+  --bg: #171410;
+  --text: #f0e9dd;
+  --accent: #e8855f;
+}
+</code></pre>
+<p>组件里只写 <code>var(--bg)</code>，不写具体颜色。切换根节点 class，所有组件一起变色。</p>
+<h3 id="73">7.3 响应式断点</h3>
+<p>本项目用两个断点：</p>
+<table>
+<thead>
+<tr>
+<th>断点</th>
+<th>变化</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>max-width: 860px</code></td>
+<td>首页三栏 → 一栏；详情两栏 → 上下；关于页两栏 → 上下</td>
+</tr>
+<tr>
+<td><code>max-width: 720px</code></td>
+<td>目的地两列 → 一列；统计四列 → 两列；头图标题字号变小</td>
+</tr>
+</tbody>
+</table>
+<h3 id="74">7.4 为小程序做的兼容处理</h3>
+<table>
+<thead>
+<tr>
+<th>Web 写法</th>
+<th>问题</th>
+<th>本项目做法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>color-mix()</code></td>
+<td>WXSS 不支持</td>
+<td>改用固定 <code>rgba()</code></td>
+</tr>
+<tr>
+<td><code>aspect-ratio</code></td>
+<td>兼容性差</td>
+<td>改用固定高度 + <code>mode="aspectFill"</code></td>
+</tr>
+<tr>
+<td><code>backdrop-filter</code></td>
+<td>小程序不支持</td>
+<td>移除，改用半透明背景</td>
+</tr>
+<tr>
+<td><code>&lt;Transition&gt;</code></td>
+<td>小程序不支持</td>
+<td>移除页面过渡动画</td>
+</tr>
+<tr>
+<td><code>&lt;select&gt;</code></td>
+<td>小程序没有</td>
+<td><code>&lt;picker mode="selector"&gt;</code></td>
+</tr>
+<tr>
+<td><code>input.focus()</code></td>
+<td>没有 DOM</td>
+<td><code>&lt;input :focus="focused"&gt;</code> + 先 false 再 true</td>
+</tr>
+<tr>
+<td><code>background-image: url(网络图)</code></td>
+<td>小程序不支持</td>
+<td><code>&lt;image&gt;</code> 组件 + <code>mode="aspectFill"</code></td>
+</tr>
+<tr>
+<td><code>html</code> / <code>document</code></td>
+<td>逻辑层无 DOM</td>
+<td>数据驱动 + <code>uni.*</code> API</td>
+</tr>
+</tbody>
+</table>
+<h3 id="75-px-rpx">7.5 关于 px 与 rpx</h3>
+<p><code>manifest.json</code> 里设置了 <code>"transformPx": false</code>，所以样式里的 <code>px</code> 不会被转成 <code>rpx</code>，
+在不同手机上尺寸保持一致，但不会随屏幕宽度等比放大。</p>
+<p>如果想让布局在大屏手机上按比例缩放，可以把 <code>transformPx</code> 改为 <code>true</code>，
+或者把关键尺寸改成 <code>rpx</code>（750rpx = 屏幕宽度）。本项目为了和 Web 版视觉一致，选择了固定 <code>px</code>。</p>
+<h2 id="8">第 8 章　三条完整数据流</h2>
+<p>看懂这三条链路，基本就理解了这个项目的架构。</p>
+<h3 id="81">8.1 收藏：组件事件 → 共享状态 → 持久化 → 多处更新</h3>
+<pre><code class="language-text">用户点击 FavoriteButton
+  └─ $emit('toggle')
+       └─ DestinationCard / DestinationList 继续向上抛
+            └─ 页面调用 toggleFavorite(id)
+                 └─ useFavorites 的模块级 favorites 数组变化
+                      ├─ watch → uni.setStorageSync 写入本地
+                      ├─ NavBar 的 favoriteCount 重新计算
+                      └─ 所有卡片的 active 状态重新渲染
+</code></pre>
+<p>涉及文件：<code>FavoriteButton.vue</code> → <code>DestinationCard.vue</code> → <code>DestinationList.vue</code>
+→ <code>pages/destinations/index.vue</code> → <code>useFavorites.js</code> → <code>NavBar.vue</code>。</p>
+<h3 id="82-computed">8.2 搜索：输入 → computed → 列表重渲染</h3>
+<pre><code class="language-text">用户在 SearchBar 输入
+  └─ defineModel 更新 keyword
+       └─ 页面的 filtered computed 重新计算
+            └─ DestinationList 收到新的 destinations 数组
+                 └─ v-for 重新渲染卡片
+</code></pre>
+<p>整个过程没有手动操作 DOM，也没有手动调「刷新列表」函数。</p>
+<h3 id="83">8.3 行程：增删改 → 深度监听 → 自动保存</h3>
+<pre><code class="language-text">PlannerForm 抛 add / PlannerItem 抛 toggle·update·remove
+  └─ 页面修改 items 数组
+       ├─ watch(items, { deep: true }) → uni.setStorageSync
+       ├─ filtered / doneCount / progress 重新计算
+       └─ ProgressBar、清单、空状态自动更新
+</code></pre>
+<p>🧠 这三条链路的共同点：<strong>只改状态，视图和存储自动跟着变</strong>。</p>
+<h2 id="9-web-uni-app">第 9 章　Web → uni-app 迁移对照</h2>
+<table>
+<thead>
+<tr>
+<th>Web 版（vue-app）</th>
+<th>uni-app 版</th>
+<th>为什么</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>div</code> / <code>p</code> / <code>span</code> / <code>h1</code></td>
+<td><code>view</code> / <code>text</code></td>
+<td>小程序没有 HTML 标签</td>
+</tr>
+<tr>
+<td><code>img</code></td>
+<td><code>image mode="aspectFill"</code></td>
+<td>小程序图片组件必须显式宽高</td>
+</tr>
+<tr>
+<td><code>RouterLink</code> / <code>router.push</code></td>
+<td><code>uni.navigateTo</code> / <code>uni.switchTab</code></td>
+<td>uni-app 没有 Vue Router</td>
+</tr>
+<tr>
+<td>Vue Router 路由表</td>
+<td><code>pages.json</code> + <code>onLoad(options)</code></td>
+<td>页面参数通过 query 传递</td>
+</tr>
+<tr>
+<td><code>localStorage</code></td>
+<td><code>uni.getStorageSync</code> / <code>uni.setStorageSync</code></td>
+<td>跨端存储 API</td>
+</tr>
+<tr>
+<td><code>window.scrollY</code></td>
+<td><code>onPageScroll</code></td>
+<td>小程序没有 window 滚动事件</td>
+</tr>
+<tr>
+<td><code>window.scrollTo</code></td>
+<td><code>uni.pageScrollTo</code></td>
+<td>跨端滚动 API</td>
+</tr>
+<tr>
+<td><code>&lt;html data-theme&gt;</code></td>
+<td>根节点 <code>.theme-dark</code> + <code>uni.setNavigationBarColor</code></td>
+<td>小程序没有 html 节点</td>
+</tr>
+<tr>
+<td><code>&lt;select&gt;</code></td>
+<td><code>&lt;picker mode="selector"&gt;</code></td>
+<td>小程序没有原生下拉框</td>
+</tr>
+<tr>
+<td><code>inputRef.focus()</code></td>
+<td><code>&lt;input :focus="focused"&gt;</code></td>
+<td>没有 DOM API</td>
+</tr>
+<tr>
+<td><code>color-mix()</code> / <code>aspect-ratio</code> / <code>backdrop-filter</code></td>
+<td>固定 rgba / 固定高度</td>
+<td>WXSS 兼容性</td>
+</tr>
+<tr>
+<td><code>&lt;Transition&gt;</code></td>
+<td>移除</td>
+<td>小程序不支持 Vue Transition</td>
+</tr>
+<tr>
+<td><code>main.js</code> 里 <code>createApp().mount()</code></td>
+<td><code>createSSRApp</code> + 导出 <code>createApp</code> 工厂</td>
+<td>uni-app 运行时自己挂载</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_6">迁移时最容易踩的坑</h3>
+<ol>
+<li><strong>把 tab 页用 <code>navigateTo</code> 跳</strong>：会失败，必须 <code>switchTab</code>。</li>
+<li><strong>跳 tab 页时带 query</strong>：<code>switchTab</code> 不支持参数，需要改用全局状态或存储。</li>
+<li><strong>在组件里调用 <code>onPageScroll</code></strong>：只能在页面 setup 里注册。</li>
+<li><strong>给 <code>page</code> 加 class 做主题</strong>：小程序不支持，必须挂到页面根节点。</li>
+<li><strong>用网络图做 CSS 背景</strong>：小程序不显示，改用 <code>&lt;image&gt;</code>。</li>
+<li><strong>直接操作 DOM / window / document</strong>：小程序逻辑层没有 DOM。</li>
+</ol>
+<h2 id="10">第 10 章　自测题与动手练习</h2>
+<p>先自己回答，再看文末答案。</p>
+<h3 id="101">10.1 自测题</h3>
+<ol>
+<li>新增一个 tab 页面，最少要改哪两个地方？</li>
+<li>详情页为什么用 <code>uni.navigateTo</code>，而不用 <code>uni.switchTab</code>？</li>
+<li><code>defineModel</code> 编译后相当于哪两件事？</li>
+<li>为什么 <code>useFavorites</code> 的 <code>ref</code> 要写在函数外面？</li>
+<li><code>onLoad</code> 和 <code>onMounted</code> 有什么区别？各适合做什么？</li>
+<li>主题切换为什么不能用 <code>&lt;html data-theme&gt;</code>？</li>
+<li>小程序里为什么不能 <code>document.querySelector</code>？替代思路是什么？</li>
+<li>图片要正式发布，<code>urlCheck: false</code> 足够吗？还需要做什么？</li>
+<li><code>switchTab</code> 能不能带 query？不能的话怎么传参？</li>
+<li>说出三个为 WXSS 兼容做的改动。</li>
+</ol>
+<h3 id="102">10.2 动手练习</h3>
+<ol>
+<li>往 <code>destinations.js</code> 里加一个你喜欢的城市，让它出现在列表页；再把它设为 <code>featured: true</code>，看首页是否出现。</li>
+<li>把 <code>useFavorites</code> 的存储 key 改成 <code>my-favorites</code>，观察刷新后收藏是否还在，并解释原因。</li>
+<li>给首页功能卡加第 4 张，调整 <code>.grid-col</code> 的宽度让一行显示 4 张（提示：25%）。</li>
+<li>给详情页加一个「复制目的地名称」按钮，使用 <code>uni.setClipboardData</code>。</li>
+<li>把行程页的「随机灵感」改成「随机灵感 + 自动聚焦输入框」。</li>
+<li>把主题默认值改成深色，并确保刷新后仍然是深色。</li>
+</ol>
+<h3 id="103">10.3 参考答案</h3>
+<ol>
+<li>新建页面文件，并在 <code>pages.json</code> 的 <code>pages</code> 和 <code>tabBar.list</code> 中各加一项（tabBar 最多 5 项）。</li>
+<li>详情页不在 <code>tabBar.list</code> 中；<code>switchTab</code> 只能跳 tab 页且不能带参数，<code>navigateTo</code> 可以带 query。</li>
+<li>一个 <code>modelValue</code> prop + 一个 <code>update:modelValue</code> 事件（命名 model 则是 <code>region</code> + <code>update:region</code>）。</li>
+<li>写在函数内每次调用都会创建新 <code>ref</code>，页面之间不同步；写在模块级才是单例。</li>
+<li><code>onLoad</code> 是 uni 页面生命周期，页面创建时执行一次，能接收路由 query；<code>onMounted</code> 是 Vue 组件挂载，适合初始化组件内部逻辑。</li>
+<li>小程序没有 <code>html</code> / <code>document</code> 节点；改用页面根节点 class + CSS 变量，原生导航栏用 <code>uni.setNavigationBarColor</code> 同步。</li>
+<li>小程序逻辑层与视图层分离，没有 DOM；用数据驱动视图，用 <code>uni.*</code> API 代替 DOM 操作。</li>
+<li>不够。<code>urlCheck:false</code> 只是开发者工具跳过校验；正式发布要在小程序后台配置 <code>downloadFile</code> 合法域名，或把图片放到 <code>src/static/</code> 用本地路径。</li>
+<li>不能。可以写到全局状态、本地存储，或先 <code>switchTab</code> 再由目标页从存储读取。</li>
+<li>例如：<code>color-mix()</code> → 固定 rgba；<code>aspect-ratio</code> → 固定高度；<code>&lt;Transition&gt;</code> → 移除；<code>&lt;select&gt;</code> → <code>&lt;picker&gt;</code>；网络背景图 → <code>&lt;image&gt;</code>。</li>
+</ol>
+<h2 id="_7">附录　运行命令与排错</h2>
+<h3 id="_8">常用命令</h3>
+<pre><code class="language-bash">cd D:/web/uniapp-app
+npm install            # 首次安装依赖
+
+npm run dev:h5         # H5 开发服务器
+npm run dev:mp-weixin  # 监听编译到 dist/dev/mp-weixin
+npm run dev:app        # 编译 App 资源到 dist/dev/app
+
+npm run build:h5         # 生产构建 → dist/build/h5
+npm run build:mp-weixin  # 生产构建 → dist/build/mp-weixin
+npm run build:app        # 生产构建 → dist/build/app
+</code></pre>
+<h3 id="hbuilderx">HBuilderX 运行</h3>
+<table>
+<thead>
+<tr>
+<th>目标</th>
+<th>菜单</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>H5</td>
+<td>运行 → 运行到浏览器</td>
+</tr>
+<tr>
+<td>微信小程序</td>
+<td>运行 → 运行到小程序模拟器 → 微信开发者工具</td>
+</tr>
+<tr>
+<td>Android</td>
+<td>运行 → 运行到手机或模拟器 → 运行到 Android App 基座</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_9">常见问题</h3>
+<table>
+<thead>
+<tr>
+<th>现象</th>
+<th>原因</th>
+<th>解决</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>微信开发者工具闪退</td>
+<td>系统有 <code>ELECTRON_RUN_AS_NODE=1</code></td>
+<td>启动前清除该环境变量</td>
+</tr>
+<tr>
+<td>CLI 提示 <code>IDE service port disabled</code></td>
+<td>开发者工具未开服务端口</td>
+<td>设置 → 安全设置 → 服务端口（手动开启）</td>
+</tr>
+<tr>
+<td>小程序图片不显示</td>
+<td>域名未配置 / <code>urlCheck</code></td>
+<td>开发期关闭校验；正式发布配置合法域名或本地化</td>
+</tr>
+<tr>
+<td>跳 tab 页报错</td>
+<td>用了 <code>navigateTo</code></td>
+<td>改用 <code>switchTab</code></td>
+</tr>
+<tr>
+<td>主题切换无效</td>
+<td>class 加在了 <code>page</code> 上</td>
+<td>加到页面根节点 <code>.app</code></td>
+</tr>
+<tr>
+<td>输入框聚焦无效</td>
+<td>没有先置 false</td>
+<td><code>focused=false</code> 后延时 50ms 再设 true</td>
+</tr>
+<tr>
+<td>GitHub Pages 404</td>
+<td>Pages 构建延迟</td>
+<td>等待 1–2 分钟再刷新</td>
+</tr>
+</tbody>
+</table>
+<h3 id="_10">在线预览</h3>
+<p><a href="https://bell-567.github.io/web/uniapp/">https://bell-567.github.io/web/uniapp/</a></p>
+<footer>
+  山海行记 · uni-app 多端项目对照学习笔记<br />
+  代码块仅用于阅读；实际运行请使用 HBuilderX / 微信开发者工具。<br />
+  <a href="https://bell-567.github.io/web/uniapp/">在线预览</a>
+</footer>
+</div>
+<button id="toTop" aria-label="返回顶部" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>
+  window.addEventListener('scroll', function () {
+    document.getElementById('toTop').style.display = window.scrollY > 500 ? 'block' : 'none';
+  });
+</script>
+</body>
+</html>

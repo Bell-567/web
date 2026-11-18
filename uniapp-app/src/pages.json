@@ -1,0 +1,65 @@
+{
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "山海行记"
+      }
+    },
+    {
+      "path": "pages/destinations/index",
+      "style": {
+        "navigationBarTitleText": "探索目的地"
+      }
+    },
+    {
+      "path": "pages/destination/detail",
+      "style": {
+        "navigationBarTitleText": "目的地详情"
+      }
+    },
+    {
+      "path": "pages/planner/index",
+      "style": {
+        "navigationBarTitleText": "行程规划"
+      }
+    },
+    {
+      "path": "pages/about/index",
+      "style": {
+        "navigationBarTitleText": "关于山海行记"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "山海行记",
+    "navigationBarBackgroundColor": "#F7F3EC",
+    "backgroundColor": "#F7F3EC",
+    "backgroundTextStyle": "dark"
+  },
+  "tabBar": {
+    "color": "#776C5E",
+    "selectedColor": "#D96C4B",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/destinations/index",
+        "text": "目的地"
+      },
+      {
+        "pagePath": "pages/planner/index",
+        "text": "行程规划"
+      },
+      {
+        "pagePath": "pages/about/index",
+        "text": "关于"
+      }
+    ]
+  }
+}
